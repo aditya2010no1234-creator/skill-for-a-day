@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import requests
-import uuid
+
 
 # =========================================================
 # SETTINGS
@@ -54,7 +54,7 @@ jobs = pd.DataFrame({
 
     "Hours": [
         5, 6, 5, 6, 4,
-        5, 5, 4, 6, 5
+        5, 5, 5, 6, 5
     ],
 
     "Skill": [
@@ -92,6 +92,9 @@ jobs = pd.DataFrame({
 if "selected_job" not in st.session_state:
     st.session_state.selected_job = None
 
+if "requested_page" not in st.session_state:
+    st.session_state.requested_page = "Home"
+
 
 # =========================================================
 # SIDEBAR
@@ -106,9 +109,6 @@ pages = [
     "Learn Skills",
     "About SDG 1"
 ]
-
-if "requested_page" not in st.session_state:
-    st.session_state.requested_page = "Home"
 
 page = st.sidebar.radio(
     "Navigation",
@@ -125,31 +125,49 @@ st.session_state.requested_page = page
 
 if page == "Home":
 
+    # Hero
     st.markdown(
         """
         <div style="
-            padding: 45px 30px;
-            border-radius: 18px;
+            padding: 45px 35px;
+            border-radius: 20px;
             background: linear-gradient(135deg, #0f172a, #1e3a8a);
             color: white;
             margin-bottom: 30px;
         ">
-            <h1 style="font-size: 48px; margin-bottom: 10px;">
+
+            <h1 style="
+                font-size: 48px;
+                margin-bottom: 8px;
+            ">
                 Skill-for-a-Day
             </h1>
-            <h2 style="font-size: 25px; font-weight: 400;">
+
+            <h2 style="
+                font-size: 25px;
+                font-weight: 400;
+                margin-bottom: 15px;
+            ">
                 Earn today. Learn for tomorrow.
             </h2>
-            <p style="font-size: 18px; max-width: 750px;">
+
+            <p style="
+                font-size: 18px;
+                max-width: 800px;
+                line-height: 1.6;
+            ">
                 A community platform connecting people with
                 short-term paid work while helping them build
                 practical skills for better opportunities.
             </p>
+
         </div>
         """,
         unsafe_allow_html=True
     )
 
+
+    # Main introduction
     col1, col2 = st.columns([2, 1])
 
     with col1:
@@ -161,13 +179,16 @@ if page == "Home":
             "gain practical experience at the same time."
         )
 
-if st.button(
-    "Find Jobs",
-    type="primary",
-    use_container_width=True
-):
-    st.session_state.requested_page = "Find Jobs"
-    st.rerun()
+        if st.button(
+            "Find Jobs",
+            type="primary",
+            use_container_width=True
+        ):
+
+            st.session_state.requested_page = "Find Jobs"
+            st.rerun()
+
+
     with col2:
 
         st.metric(
@@ -175,96 +196,141 @@ if st.button(
             len(jobs)
         )
 
+
     st.divider()
 
+
+    # Impact
     st.subheader("Our Impact")
 
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        st.metric("Jobs", len(jobs))
+        st.metric(
+            "Jobs",
+            len(jobs)
+        )
 
     with col2:
-        st.metric("Skills", jobs["Skill"].nunique())
+        st.metric(
+            "Skills",
+            jobs["Skill"].nunique()
+        )
 
     with col3:
-        st.metric("Locations", jobs["Location"].nunique())
+        st.metric(
+            "Locations",
+            jobs["Location"].nunique()
+        )
 
     with col4:
-        st.metric("Max Daily Pay", f"₹{jobs['Pay'].max()}")
+        st.metric(
+            "Max Daily Pay",
+            f"₹{jobs['Pay'].max()}"
+        )
+
 
     st.divider()
 
+
+    # How it works
     st.subheader("How Skill-for-a-Day Works")
 
     c1, c2, c3 = st.columns(3)
 
     with c1:
+
         st.markdown("### 01 · Find")
+
         st.write(
-            "Browse short-term paid jobs available in your area."
+            "Browse short-term paid jobs available "
+            "in your area."
         )
+
 
     with c2:
+
         st.markdown("### 02 · Apply")
+
         st.write(
-            "Choose an opportunity that matches your interests "
-            "and submit your application."
+            "Choose an opportunity that matches your "
+            "interests and submit your application."
         )
 
+
     with c3:
+
         st.markdown("### 03 · Learn & Earn")
+
         st.write(
-            "Complete the work, earn income and gain practical "
-            "experience."
+            "Complete the work, earn income and gain "
+            "practical experience."
         )
+
 
     st.divider()
 
+
+    # Why Skill-for-a-Day
     st.subheader("Why Skill-for-a-Day?")
 
     col1, col2 = st.columns(2)
 
     with col1:
+
         st.markdown("### Income")
+
         st.write(
             "Short-term work can provide immediate earning "
             "opportunities for people who need them."
         )
 
+
     with col2:
+
         st.markdown("### Skills")
+
         st.write(
             "Every opportunity can help people develop useful "
             "practical skills and experience."
         )
 
+
     st.divider()
 
+
+    # SDG 1
     st.subheader("Connected to SDG 1 — No Poverty")
 
     st.info(
-        "Skill-for-a-Day supports Sustainable Development Goal 1 "
-        "by connecting people with earning opportunities while "
-        "encouraging practical skill development."
+        "Skill-for-a-Day supports Sustainable Development "
+        "Goal 1 by connecting people with earning opportunities "
+        "while encouraging practical skill development."
     )
 
+
+    # Final message
     st.markdown(
         """
         <div style="
-            text-align:center;
-            padding:25px;
-            margin-top:25px;
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
         ">
-            <h3>Earn → Learn → Grow</h3>
-            <p>
-                Small opportunities today can create better
-                opportunities tomorrow.
+
+            <h2>Earn → Learn → Grow</h2>
+
+            <p style="font-size: 17px;">
+                Small opportunities today can create
+                better opportunities tomorrow.
             </p>
+
         </div>
         """,
         unsafe_allow_html=True
     )
+
+
 # =========================================================
 # FIND JOBS
 # =========================================================
@@ -274,37 +340,56 @@ elif page == "Find Jobs":
     st.title("Find Jobs")
 
     st.write(
-        "Find short-term paid work opportunities and build useful skills."
+        "Find short-term paid work opportunities "
+        "and build useful skills."
     )
 
+
+    # Search
     search = st.text_input(
         "Search for a job",
         placeholder="Example: painting, gardening..."
     )
 
+
+    # Filters
     col1, col2, col3 = st.columns(3)
 
     with col1:
+
         location = st.selectbox(
             "Location",
-            ["All"] + sorted(jobs["Location"].unique())
+            ["All"] + sorted(
+                jobs["Location"].unique()
+            )
         )
+
 
     with col2:
+
         skill = st.selectbox(
             "Skill",
-            ["All"] + sorted(jobs["Skill"].unique())
+            ["All"] + sorted(
+                jobs["Skill"].unique()
+            )
         )
+
 
     with col3:
+
         level = st.selectbox(
             "Experience Level",
-            ["All"] + sorted(jobs["Level"].unique())
+            ["All"] + sorted(
+                jobs["Level"].unique()
+            )
         )
 
+
+    # Filter jobs
     filtered = jobs.copy()
 
     if search:
+
         filtered = filtered[
             filtered["Job"].str.contains(
                 search,
@@ -313,23 +398,32 @@ elif page == "Find Jobs":
             )
         ]
 
+
     if location != "All":
+
         filtered = filtered[
             filtered["Location"] == location
         ]
 
+
     if skill != "All":
+
         filtered = filtered[
             filtered["Skill"] == skill
         ]
 
+
     if level != "All":
+
         filtered = filtered[
             filtered["Level"] == level
         ]
 
+
     st.divider()
 
+
+    # Job results
     if filtered.empty:
 
         st.warning(
@@ -337,6 +431,11 @@ elif page == "Find Jobs":
         )
 
     else:
+
+        st.write(
+            f"**{len(filtered)} job(s) available**"
+        )
+
 
         for index, job in filtered.iterrows():
 
@@ -346,29 +445,45 @@ elif page == "Find Jobs":
 
                 with col1:
 
-                    st.subheader(job["Job"])
+                    st.subheader(
+                        job["Job"]
+                    )
 
                     st.write(
-                        f"**Location:** {job['Location']}\n\n"
-                        f"**Pay:** ₹{job['Pay']}\n\n"
-                        f"**Duration:** {job['Hours']} hours\n\n"
-                        f"**Skill:** {job['Skill']}\n\n"
-                        f"**Level:** {job['Level']}"
+                        f"**Location:** {job['Location']}"
                     )
+
+                    st.write(
+                        f"**Pay:** ₹{job['Pay']}"
+                    )
+
+                    st.write(
+                        f"**Duration:** {job['Hours']} hours"
+                    )
+
+                    st.write(
+                        f"**Skill:** {job['Skill']}"
+                    )
+
+                    st.write(
+                        f"**Experience:** {job['Level']}"
+                    )
+
 
                 with col2:
 
+                    st.write("")
+
                     if st.button(
                         "Apply",
-                        key=f"apply_{index}"
+                        key=f"apply_{index}",
+                        use_container_width=True
                     ):
 
                         st.session_state.selected_job = job["Job"]
 
-            # -------------------------------------------------
-            # APPLICATION FORM
-            # -------------------------------------------------
 
+            # Application form
             if st.session_state.selected_job == job["Job"]:
 
                 st.subheader(
@@ -395,21 +510,21 @@ elif page == "Find Jobs":
                         "Submit Application"
                     )
 
+
                     if submitted:
 
                         if not name or not phone:
 
                             st.error(
-                                "Please enter your name and phone number."
+                                "Please enter your name "
+                                "and phone number."
                             )
 
                         else:
 
-                            application_id = phone.strip()
-
                             application = {
 
-                                "ID": application_id,
+                                "ID": phone.strip(),
 
                                 "Name": name.strip(),
 
@@ -424,6 +539,7 @@ elif page == "Find Jobs":
                                 "Reason": reason.strip()
                             }
 
+
                             try:
 
                                 response = requests.post(
@@ -432,6 +548,7 @@ elif page == "Find Jobs":
                                     timeout=15
                                 )
 
+
                                 if response.status_code == 200:
 
                                     st.success(
@@ -439,12 +556,14 @@ elif page == "Find Jobs":
                                     )
 
                                     st.info(
-                                        "Your application has been saved permanently. "
-                                        "You can view it later from My Applications "
+                                        "Your application has been "
+                                        "saved permanently. You can "
+                                        "view it later from My Applications "
                                         "using the same phone number."
                                     )
 
                                     st.session_state.selected_job = None
+
 
                                 else:
 
@@ -453,10 +572,12 @@ elif page == "Find Jobs":
                                         "Please try again."
                                     )
 
-                            except Exception as e:
+
+                            except Exception:
 
                                 st.error(
-                                    "Connection error. Please try again."
+                                    "Connection error. "
+                                    "Please try again."
                                 )
 
 
@@ -473,12 +594,17 @@ elif page == "My Applications":
         "to view your saved applications."
     )
 
+
     phone = st.text_input(
         "Phone Number",
         placeholder="Enter your phone number"
     )
 
-    if st.button("View My Applications"):
+
+    if st.button(
+        "View My Applications",
+        type="primary"
+    ):
 
         if not phone:
 
@@ -492,68 +618,70 @@ elif page == "My Applications":
 
                 response = requests.get(
                     GOOGLE_SCRIPT_URL,
-                    params={"id": phone.strip()},
+                    params={
+                        "id": phone.strip()
+                    },
                     timeout=15
                 )
+
 
                 if response.status_code == 200:
 
                     data = response.json()
 
+
                     if data:
-
-                        application_df = pd.DataFrame(data)
-
-                        application_df = application_df[
-                            [
-                                "Name",
-                                "Phone",
-                                "Job",
-                                "Location",
-                                "Pay",
-                                "Reason"
-                            ]
-                        ]
 
                         st.success(
                             f"Found {len(data)} application(s)."
                         )
 
+
                         for application in data:
 
-                            with st.container(border=True):
+                            with st.container(
+                                border=True
+                            ):
 
                                 st.subheader(
                                     application["Job"]
                                 )
 
                                 st.write(
-                                    f"**Name:** {application['Name']}"
+                                    f"**Name:** "
+                                    f"{application['Name']}"
                                 )
 
                                 st.write(
-                                    f"**Location:** {application['Location']}"
+                                    f"**Location:** "
+                                    f"{application['Location']}"
                                 )
 
                                 st.write(
-                                    f"**Pay:** ₹{application['Pay']}"
+                                    f"**Pay:** "
+                                    f"₹{application['Pay']}"
                                 )
 
                                 st.write(
-                                    f"**Reason:** {application['Reason']}"
+                                    f"**Reason:** "
+                                    f"{application['Reason']}"
                                 )
+
 
                     else:
 
                         st.info(
-                            "No applications were found for this phone number."
+                            "No applications were found "
+                            "for this phone number."
                         )
+
 
                 else:
 
                     st.error(
                         "Could not retrieve applications."
                     )
+
 
             except Exception:
 
@@ -575,46 +703,61 @@ elif page == "Learn Skills":
         "It also helps people develop practical skills."
     )
 
+
     skills = {
 
         "Gardening":
-            "Learn basic plant care, soil preparation and garden maintenance.",
+            "Learn basic plant care, soil preparation "
+            "and garden maintenance.",
 
         "Painting":
-            "Learn basic wall preparation, painting and finishing.",
+            "Learn basic wall preparation, painting "
+            "and finishing.",
 
         "Packing":
             "Learn safe and efficient packaging techniques.",
 
         "Delivery":
-            "Learn basic delivery planning and customer interaction.",
+            "Learn basic delivery planning and "
+            "customer interaction.",
 
         "Cleaning":
-            "Learn professional cleaning and organization techniques.",
+            "Learn professional cleaning and "
+            "organization techniques.",
 
         "Retail":
-            "Learn customer service, stocking and basic shop management.",
+            "Learn customer service, stocking and "
+            "basic shop management.",
 
         "Cooking":
-            "Learn basic kitchen safety, preparation and food handling.",
+            "Learn basic kitchen safety, preparation "
+            "and food handling.",
 
         "Computer Basics":
-            "Learn typing, spreadsheets, data entry and basic computer use.",
+            "Learn typing, spreadsheets, data entry "
+            "and basic computer use.",
 
         "Event Support":
-            "Learn teamwork, organization and event assistance.",
+            "Learn teamwork, organization and "
+            "event assistance.",
 
         "Tailoring":
-            "Learn basic stitching, measurements and garment handling."
+            "Learn basic stitching, measurements "
+            "and garment handling."
     }
+
 
     for skill_name, description in skills.items():
 
         with st.container(border=True):
 
-            st.subheader(skill_name)
+            st.subheader(
+                skill_name
+            )
 
-            st.write(description)
+            st.write(
+                description
+            )
 
 
 # =========================================================
@@ -626,26 +769,30 @@ elif page == "About SDG 1":
     st.title("SDG 1 — No Poverty")
 
     st.write(
-        "Sustainable Development Goal 1 aims to end poverty "
-        "in all its forms everywhere."
+        "Sustainable Development Goal 1 aims to end "
+        "poverty in all its forms everywhere."
     )
+
 
     st.header("The Problem")
 
     st.write(
-        "Many people facing poverty may not have access to stable "
-        "employment, formal qualifications or opportunities to learn "
-        "new skills. At the same time, households and local businesses "
-        "often need help with small tasks."
+        "Many people facing poverty may not have access "
+        "to stable employment, formal qualifications or "
+        "opportunities to learn new skills. At the same time, "
+        "households and local businesses often need help "
+        "with small tasks."
     )
+
 
     st.header("Our Solution")
 
     st.write(
-        "Skill-for-a-Day creates a community system where people "
-        "can find short paid work opportunities while gaining useful "
-        "practical skills."
+        "Skill-for-a-Day creates a community system where "
+        "people can find short paid work opportunities while "
+        "gaining useful practical skills."
     )
+
 
     st.header("Expected Impact")
 
@@ -656,23 +803,26 @@ elif page == "About SDG 1":
         st.subheader("Income")
 
         st.write(
-            "Provides short-term earning opportunities for people "
-            "who need them."
+            "Provides short-term earning opportunities "
+            "for people who need them."
         )
+
 
     with col2:
 
         st.subheader("Skills")
 
         st.write(
-            "Helps people develop practical skills that can improve "
-            "future employment opportunities."
+            "Helps people develop practical skills that "
+            "can improve future employment opportunities."
         )
+
 
     st.divider()
 
+
     st.success(
-        "Skill-for-a-Day connects opportunity, income and skill "
-        "development to help communities move towards a future "
-        "with less poverty."
+        "Skill-for-a-Day connects opportunity, income "
+        "and skill development to help communities move "
+        "towards a future with less poverty."
     )
