@@ -1486,69 +1486,127 @@ elif page == "Learn Skills":
                         st.session_state.selected_skill = skill_name
                         st.rerun()
 
+```python
 # =========================================================
 # ABOUT SDG 1
 # =========================================================
 
 elif page == "About SDG 1":
 
-    st.title("SDG 1 — No Poverty")
+    if language == "English":
 
-    st.write(
-        "Sustainable Development Goal 1 aims to end "
-        "poverty in all its forms everywhere."
-    )
-
-
-    st.header("The Problem")
-
-    st.write(
-        "Many people facing poverty may not have access "
-        "to stable employment, formal qualifications or "
-        "opportunities to learn new skills. At the same time, "
-        "households and local businesses often need help "
-        "with small tasks."
-    )
-
-
-    st.header("Our Solution")
-
-    st.write(
-        "Skill-for-a-Day creates a community system where "
-        "people can find short paid work opportunities while "
-        "gaining useful practical skills."
-    )
-
-
-    st.header("Expected Impact")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-
-        st.subheader("Income")
+        st.title("SDG 1 — No Poverty")
 
         st.write(
-            "Provides short-term earning opportunities "
-            "for people who need them."
+            "Sustainable Development Goal 1 aims to end "
+            "poverty in all its forms everywhere."
+        )
+
+        st.header("The Problem")
+
+        st.write(
+            "Many people facing poverty may not have access "
+            "to stable employment, formal qualifications or "
+            "opportunities to learn new skills. At the same time, "
+            "households and local businesses often need help "
+            "with small tasks."
+        )
+
+        st.header("Our Solution")
+
+        st.write(
+            "Skill-for-a-Day creates a community system where "
+            "people can find short paid work opportunities while "
+            "gaining useful practical skills."
+        )
+
+        st.header("Expected Impact")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+
+            st.subheader("Income")
+
+            st.write(
+                "Provides short-term earning opportunities "
+                "for people who need them."
+            )
+
+        with col2:
+
+            st.subheader("Skills")
+
+            st.write(
+                "Helps people develop practical skills that "
+                "can improve future employment opportunities."
+            )
+
+        st.divider()
+
+        st.success(
+            "Skill-for-a-Day connects opportunity, income "
+            "and skill development to help communities move "
+            "towards a future with less poverty."
         )
 
 
-    with col2:
+    else:
 
-        st.subheader("Skills")
+        st.title("एसडीजी 1 — गरीबी समाप्त करना")
 
         st.write(
-            "Helps people develop practical skills that "
-            "can improve future employment opportunities."
+            "सतत विकास लक्ष्य 1 का उद्देश्य हर जगह "
+            "हर प्रकार की गरीबी को समाप्त करना है।"
         )
 
+        st.header("समस्या")
 
-    st.divider()
+        st.write(
+            "गरीबी का सामना कर रहे कई लोगों के पास स्थायी "
+            "रोज़गार, औपचारिक योग्यताओं या नए कौशल सीखने "
+            "के अवसरों तक पर्याप्त पहुँच नहीं होती। वहीं, "
+            "घरों और स्थानीय व्यवसायों को अक्सर छोटे-मोटे "
+            "कामों में सहायता की आवश्यकता होती है।"
+        )
 
+        st.header("हमारा समाधान")
 
-    st.success(
-        "Skill-for-a-Day connects opportunity, income "
-        "and skill development to help communities move "
-        "towards a future with less poverty."
-    )
+        st.write(
+            "स्किल-फॉर-ए-डे एक सामुदायिक व्यवस्था बनाता है "
+            "जहाँ लोग कम समय वाले भुगतान किए गए काम के "
+            "अवसर प्राप्त कर सकते हैं और साथ ही उपयोगी "
+            "व्यावहारिक कौशल सीख सकते हैं।"
+        )
+
+        st.header("अपेक्षित प्रभाव")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+
+            st.subheader("आय")
+
+            st.write(
+                "जिन लोगों को इसकी आवश्यकता है, उनके लिए "
+                "कम समय में आय अर्जित करने के अवसर प्रदान करता है।"
+            )
+
+        with col2:
+
+            st.subheader("कौशल")
+
+            st.write(
+                "लोगों को ऐसे व्यावहारिक कौशल विकसित करने में "
+                "मदद करता है जो भविष्य में रोज़गार के अवसरों "
+                "को बेहतर बना सकते हैं।"
+            )
+
+        st.divider()
+
+        st.success(
+            "स्किल-फॉर-ए-डे अवसर, आय और कौशल विकास को "
+            "एक साथ जोड़कर समुदायों को कम गरीबी वाले "
+            "बेहतर भविष्य की ओर बढ़ने में मदद करता है।"
+        )
+```
