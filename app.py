@@ -876,110 +876,203 @@ elif page == "Find Jobs":
 # MY APPLICATIONS
 # =========================================================
 
+
 elif page == "My Applications":
 
-    st.title("My Applications")
+    if language == "English":
 
-    st.write(
-        "Enter the same phone number you used while applying "
-        "to view your saved applications."
-    )
+        st.title("My Applications")
 
+        st.write(
+            "Enter the same phone number you used while applying "
+            "to view your saved applications."
+        )
 
-    phone = st.text_input(
-        "Phone Number",
-        placeholder="Enter your phone number"
-    )
+        phone = st.text_input(
+            "Phone Number",
+            placeholder="Enter your phone number"
+        )
 
+        if st.button(
+            "View My Applications",
+            type="primary"
+        ):
 
-    if st.button(
-        "View My Applications",
-        type="primary"
-    ):
+            if not phone:
 
-        if not phone:
-
-            st.warning(
-                "Please enter your phone number."
-            )
-
-        else:
-
-            try:
-
-                response = requests.get(
-                    GOOGLE_SCRIPT_URL,
-                    params={
-                        "id": phone.strip()
-                    },
-                    timeout=15
+                st.warning(
+                    "Please enter your phone number."
                 )
 
+            else:
 
-                if response.status_code == 200:
+                try:
 
-                    data = response.json()
+                    response = requests.get(
+                        GOOGLE_SCRIPT_URL,
+                        params={
+                            "id": phone.strip()
+                        },
+                        timeout=15
+                    )
 
+                    if response.status_code == 200:
 
-                    if data:
+                        data = response.json()
 
-                        st.success(
-                            f"Found {len(data)} application(s)."
-                        )
+                        if data:
 
+                            st.success(
+                                f"Found {len(data)} application(s)."
+                            )
 
-                        for application in data:
+                            for application in data:
 
-                            with st.container(
-                                border=True
-                            ):
+                                with st.container(
+                                    border=True
+                                ):
 
-                                st.subheader(
-                                    application["Job"]
-                                )
+                                    st.subheader(
+                                        application["Job"]
+                                    )
 
-                                st.write(
-                                    f"**Name:** "
-                                    f"{application['Name']}"
-                                )
+                                    st.write(
+                                        f"**Name:** "
+                                        f"{application['Name']}"
+                                    )
 
-                                st.write(
-                                    f"**Location:** "
-                                    f"{application['Location']}"
-                                )
+                                    st.write(
+                                        f"**Location:** "
+                                        f"{application['Location']}"
+                                    )
 
-                                st.write(
-                                    f"**Pay:** "
-                                    f"₹{application['Pay']}"
-                                )
+                                    st.write(
+                                        f"**Pay:** "
+                                        f"₹{application['Pay']}"
+                                    )
 
-                                st.write(
-                                    f"**Reason:** "
-                                    f"{application['Reason']}"
-                                )
+                                    st.write(
+                                        f"**Reason:** "
+                                        f"{application['Reason']}"
+                                    )
 
+                        else:
+
+                            st.info(
+                                "No applications were found "
+                                "for this phone number."
+                            )
 
                     else:
 
-                        st.info(
-                            "No applications were found "
-                            "for this phone number."
+                        st.error(
+                            "Could not retrieve applications."
                         )
 
-
-                else:
+                except Exception:
 
                     st.error(
-                        "Could not retrieve applications."
+                        "Connection error. Please try again."
                     )
 
 
-            except Exception:
+    else:
 
-                st.error(
-                    "Connection error. Please try again."
+        st.title("मेरे आवेदन")
+
+        st.write(
+            "अपने सहेजे गए आवेदन देखने के लिए वही "
+            "फ़ोन नंबर दर्ज करें जिसका उपयोग आपने आवेदन करते समय किया था।"
+        )
+
+        phone = st.text_input(
+            "फ़ोन नंबर",
+            placeholder="अपना फ़ोन नंबर दर्ज करें"
+        )
+
+        if st.button(
+            "मेरे आवेदन देखें",
+            type="primary"
+        ):
+
+            if not phone:
+
+                st.warning(
+                    "कृपया अपना फ़ोन नंबर दर्ज करें।"
                 )
 
+            else:
+
+                try:
+
+                    response = requests.get(
+                        GOOGLE_SCRIPT_URL,
+                        params={
+                            "id": phone.strip()
+                        },
+                        timeout=15
+                    )
+
+                    if response.status_code == 200:
+
+                        data = response.json()
+
+                        if data:
+
+                            st.success(
+                                f"{len(data)} आवेदन मिले।"
+                            )
+
+                            for application in data:
+
+                                with st.container(
+                                    border=True
+                                ):
+
+                                    st.subheader(
+                                        application["Job"]
+                                    )
+
+                                    st.write(
+                                        f"**नाम:** "
+                                        f"{application['Name']}"
+                                    )
+
+                                    st.write(
+                                        f"**स्थान:** "
+                                        f"{application['Location']}"
+                                    )
+
+                                    st.write(
+                                        f"**भुगतान:** "
+                                        f"₹{application['Pay']}"
+                                    )
+
+                                    st.write(
+                                        f"**कारण:** "
+                                        f"{application['Reason']}"
+                                    )
+
+                        else:
+
+                            st.info(
+                                "इस फ़ोन नंबर के लिए "
+                                "कोई आवेदन नहीं मिला।"
+                            )
+
+                    else:
+
+                        st.error(
+                            "आवेदन प्राप्त नहीं किए जा सके।"
+                        )
+
+                except Exception:
+
+                    st.error(
+                        "कनेक्शन में समस्या हुई। "
+                        "कृपया फिर से प्रयास करें।"
+                    )
+                    
 
 # =========================================================
 # LEARN SKILLS
