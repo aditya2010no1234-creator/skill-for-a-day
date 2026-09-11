@@ -472,27 +472,27 @@ elif page == "Find Jobs":
                         f"**Experience:** {job['Level']}"
                     )
 
-with col2:
+                with col2:
 
-    st.write("")
+                    st.write("")
 
-    if st.button(
-        "Apply",
-        key=f"apply_{index}",
-        use_container_width=True
-    ):
+                    if st.button(
+                        "Apply",
+                        key=f"apply_{index}",
+                        use_container_width=True
+                    ):
 
-        st.session_state.selected_job = job["Job"]
+                        st.session_state.selected_job = job["Job"]
 
-    if st.button(
-        "Learn Skill",
-        key=f"learn_skill_{index}",
-        use_container_width=True
-    ):
+                    if st.button(
+                        "Learn Skill",
+                        key=f"learn_skill_{index}",
+                        use_container_width=True
+                    ):
 
-        st.session_state.selected_skill = job["Skill"]
-        st.session_state.requested_page = "Learn Skills"
-        st.rerun()
+                        st.session_state.selected_skill = job["Skill"]
+                        st.session_state.requested_page = "Learn Skills"
+                        st.rerun()
 
 
             # Application form
