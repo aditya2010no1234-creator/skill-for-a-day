@@ -451,17 +451,6 @@ elif page == "Find Jobs":
                         st.rerun()
                         
 
-                    if st.button(
-                        "Learn Skill",
-                        key=f"learn_skill_{index}",
-                        use_container_width=True
-                    ):
-
-                        st.session_state.selected_skill = job["Skill"]
-                        st.session_state.requested_page = "Learn Skills"
-                        st.rerun()
-
-
             # Application form
             if st.session_state.selected_job == job["Job"]:
 
