@@ -130,45 +130,13 @@ if page == "Home":
 
     # Hero
     st.markdown(
-        """
-<div style="
-    padding: 45px 35px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #0f172a, #1e3a8a);
-    color: white;
-    margin-bottom: 30px;
-">
-
-    <h1 style="
-        font-size: 48px;
-        margin-bottom: 8px;
-    ">
-        Skill-for-a-Day
-    </h1>
-
-    <h2 style="
-        font-size: 25px;
-        font-weight: 400;
-        margin-bottom: 15px;
-    ">
-        Earn today. Learn for tomorrow.
-    </h2>
-
-    <p style="
-        font-size: 18px;
-        max-width: 800px;
-        line-height: 1.6;
-    ">
-        A community platform connecting people with
-        short-term paid work while helping them build
-        practical skills for better opportunities.
-    </p>
-
-</div>
-""",
+        """<div style="padding:45px 35px; border-radius:20px; background:linear-gradient(135deg, #0f172a, #1e3a8a); color:white; margin-bottom:30px;">
+<h1 style="font-size:48px; margin-bottom:8px;">Skill-for-a-Day</h1>
+<h2 style="font-size:25px; font-weight:400; margin-bottom:15px;">Earn today. Learn for tomorrow.</h2>
+<p style="font-size:18px; max-width:800px; line-height:1.6;">A community platform connecting people with short-term paid work while helping them build practical skills for better opportunities.</p>
+</div>""",
         unsafe_allow_html=True
     )
-
 
     # Main introduction
     col1, col2 = st.columns([2, 1])
