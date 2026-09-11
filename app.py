@@ -118,7 +118,6 @@ page = st.sidebar.radio(
 
 if page == "Home":
 
-    # Hero section
     st.markdown(
         """
         <div style="
@@ -131,11 +130,9 @@ if page == "Home":
             <h1 style="font-size: 48px; margin-bottom: 10px;">
                 Skill-for-a-Day
             </h1>
-
             <h2 style="font-size: 25px; font-weight: 400;">
                 Earn today. Learn for tomorrow.
             </h2>
-
             <p style="font-size: 18px; max-width: 750px;">
                 A community platform connecting people with
                 short-term paid work while helping them build
@@ -146,10 +143,10 @@ if page == "Home":
         unsafe_allow_html=True
     )
 
-    # Main CTA
     col1, col2 = st.columns([2, 1])
 
     with col1:
+
         st.subheader("Turn opportunity into progress")
 
         st.write(
@@ -157,64 +154,41 @@ if page == "Home":
             "gain practical experience at the same time."
         )
 
-col1, col2 = st.columns([2, 1])
+        if st.button(
+            "Find Jobs",
+            type="primary",
+            use_container_width=True
+        ):
+            st.session_state.page = "Find Jobs"
+            st.rerun()
 
-with col1:
-    st.subheader("Turn opportunity into progress")
+    with col2:
 
-    st.write(
-        "Find simple, short-term jobs, earn an income and "
-        "gain practical experience at the same time."
-    )
+        st.metric(
+            "Jobs Available",
+            len(jobs)
+        )
 
-    if st.button(
-        "Find Jobs",
-        type="primary",
-        use_container_width=True
-    ):
-        st.session_state.page = "Find Jobs"
-        st.rerun()
+    st.divider()
 
-with col2:
-    st.metric(
-        "Jobs Available",
-        len(jobs)
-    )
-
-st.divider()
-
-    # Impact statistics
     st.subheader("Our Impact")
 
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        st.metric(
-            "Jobs",
-            len(jobs)
-        )
+        st.metric("Jobs", len(jobs))
 
     with col2:
-        st.metric(
-            "Skills",
-            jobs["Skill"].nunique()
-        )
+        st.metric("Skills", jobs["Skill"].nunique())
 
     with col3:
-        st.metric(
-            "Locations",
-            jobs["Location"].nunique()
-        )
+        st.metric("Locations", jobs["Location"].nunique())
 
     with col4:
-        st.metric(
-            "Max Daily Pay",
-            f"₹{jobs['Pay'].max()}"
-        )
+        st.metric("Max Daily Pay", f"₹{jobs['Pay'].max()}")
 
     st.divider()
 
-    # How it works
     st.subheader("How Skill-for-a-Day Works")
 
     c1, c2, c3 = st.columns(3)
@@ -236,12 +210,11 @@ st.divider()
         st.markdown("### 03 · Learn & Earn")
         st.write(
             "Complete the work, earn income and gain practical "
-            "experience that can help you in the future."
+            "experience."
         )
 
     st.divider()
 
-    # Why Skill-for-a-Day
     st.subheader("Why Skill-for-a-Day?")
 
     col1, col2 = st.columns(2)
@@ -262,7 +235,6 @@ st.divider()
 
     st.divider()
 
-    # SDG connection
     st.subheader("Connected to SDG 1 — No Poverty")
 
     st.info(
@@ -287,7 +259,6 @@ st.divider()
         """,
         unsafe_allow_html=True
     )
-    
 # =========================================================
 # FIND JOBS
 # =========================================================
