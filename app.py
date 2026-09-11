@@ -162,13 +162,12 @@ if page == "Home":
         )
 
         if st.button(
-            "Find Jobs",
-            type="primary",
-            use_container_width=True
-        ):
-            st.session_state.page = "Find Jobs"
-            st.rerun()
-
+    "Find Jobs",
+    type="primary",
+    use_container_width=True
+):
+    st.session_state.requested_page = "Find Jobs"
+    st.rerun()
     with col2:
 
         st.metric(
