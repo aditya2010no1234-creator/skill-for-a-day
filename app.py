@@ -107,7 +107,8 @@ page = st.sidebar.radio(
         "My Applications",
         "Learn Skills",
         "About SDG 1"
-    ]
+    ],
+    key="page"
 )
 
 
@@ -157,13 +158,12 @@ if page == "Home":
         )
 
         if st.button(
-            "Find Jobs",
-            type="primary",
-            use_container_width=True
-        ):
-            st.session_state.home_go_jobs = True
-            st.rerun()
-
+    "Find Jobs",
+    type="primary",
+    use_container_width=True
+):
+    st.session_state.page = "Find Jobs"
+    st.rerun()
     with col2:
         st.metric(
             "Jobs Available",
