@@ -99,17 +99,24 @@ if "selected_job" not in st.session_state:
 
 st.sidebar.title("Skill-for-a-Day")
 
+pages = [
+    "Home",
+    "Find Jobs",
+    "My Applications",
+    "Learn Skills",
+    "About SDG 1"
+]
+
+if "requested_page" not in st.session_state:
+    st.session_state.requested_page = "Home"
+
 page = st.sidebar.radio(
     "Navigation",
-    [
-        "Home",
-        "Find Jobs",
-        "My Applications",
-        "Learn Skills",
-        "About SDG 1"
-    ],
-    key="page"
+    pages,
+    index=pages.index(st.session_state.requested_page)
 )
+
+st.session_state.requested_page = page
 
 
 # =========================================================
