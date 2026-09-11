@@ -92,6 +92,9 @@ jobs = pd.DataFrame({
 if "selected_job" not in st.session_state:
     st.session_state.selected_job = None
 
+if "selected_skill" not in st.session_state:
+    st.session_state.selected_skill = None
+
 if "requested_page" not in st.session_state:
     st.session_state.requested_page = "Home"
 
@@ -481,6 +484,15 @@ elif page == "Find Jobs":
                     ):
 
                         st.session_state.selected_job = job["Job"]
+                                            if st.button(
+                        "Learn Skill",
+                        key=f"learn_skill_{index}",
+                        use_container_width=True
+                    ):
+
+                        st.session_state.selected_skill = job["Skill"]
+                        st.session_state.requested_page = "Learn Skills"
+                        st.rerun()
 
 
             # Application form
@@ -699,66 +711,197 @@ elif page == "Learn Skills":
     st.title("Learn Skills")
 
     st.write(
-        "Skill-for-a-Day is not only about earning money. "
-        "It also helps people develop practical skills."
+        "Build practical skills that can help you perform jobs "
+        "and prepare for better opportunities."
     )
 
+    skill_lessons = {
 
-    skills = {
+        "Gardening": {
+            "title": "Gardening Basics",
+            "description": (
+                "Learn how to care for plants and maintain a garden."
+            ),
+            "steps": [
+                "Understand basic plant care.",
+                "Learn how to prepare and maintain soil.",
+                "Learn basic watering and plant maintenance.",
+                "Keep the garden clean and organized."
+            ]
+        },
 
-        "Gardening":
-            "Learn basic plant care, soil preparation "
-            "and garden maintenance.",
+        "Painting": {
+            "title": "Painting Basics",
+            "description": (
+                "Learn the basic process of preparing and painting surfaces."
+            ),
+            "steps": [
+                "Prepare and clean the surface.",
+                "Understand basic painting tools.",
+                "Learn how to apply paint evenly.",
+                "Keep the work area clean and organized."
+            ]
+        },
 
-        "Painting":
-            "Learn basic wall preparation, painting "
-            "and finishing.",
+        "Packing": {
+            "title": "Packing Basics",
+            "description": (
+                "Learn how to pack items safely and efficiently."
+            ),
+            "steps": [
+                "Identify the item and choose suitable packaging.",
+                "Place the item securely inside the package.",
+                "Protect fragile items properly.",
+                "Check the package before it is moved or delivered."
+            ]
+        },
 
-        "Packing":
-            "Learn safe and efficient packaging techniques.",
+        "Delivery": {
+            "title": "Delivery Basics",
+            "description": (
+                "Learn basic delivery planning and customer interaction."
+            ),
+            "steps": [
+                "Check the delivery details carefully.",
+                "Plan the route before starting.",
+                "Handle the package carefully.",
+                "Communicate politely with the customer."
+            ]
+        },
 
-        "Delivery":
-            "Learn basic delivery planning and "
-            "customer interaction.",
+        "Cleaning": {
+            "title": "Cleaning Basics",
+            "description": (
+                "Learn basic cleaning and organization techniques."
+            ),
+            "steps": [
+                "Understand the area that needs cleaning.",
+                "Organize the cleaning tools.",
+                "Clean surfaces systematically.",
+                "Keep the area organized after finishing."
+            ]
+        },
 
-        "Cleaning":
-            "Learn professional cleaning and "
-            "organization techniques.",
+        "Retail": {
+            "title": "Retail Basics",
+            "description": (
+                "Learn basic customer service and shop assistance."
+            ),
+            "steps": [
+                "Greet customers politely.",
+                "Learn how products are organized.",
+                "Keep shelves and products organized.",
+                "Assist customers clearly and respectfully."
+            ]
+        },
 
-        "Retail":
-            "Learn customer service, stocking and "
-            "basic shop management.",
+        "Cooking": {
+            "title": "Kitchen Basics",
+            "description": (
+                "Learn basic kitchen organization, preparation and safety."
+            ),
+            "steps": [
+                "Keep the workspace clean.",
+                "Understand basic kitchen tools.",
+                "Prepare ingredients carefully.",
+                "Follow safe food-handling practices."
+            ]
+        },
 
-        "Cooking":
-            "Learn basic kitchen safety, preparation "
-            "and food handling.",
+        "Computer Basics": {
+            "title": "Computer Basics",
+            "description": (
+                "Learn basic computer skills useful for data entry work."
+            ),
+            "steps": [
+                "Learn basic keyboard and mouse use.",
+                "Practice typing accurately.",
+                "Understand basic spreadsheet use.",
+                "Learn how to enter and organize information."
+            ]
+        },
 
-        "Computer Basics":
-            "Learn typing, spreadsheets, data entry "
-            "and basic computer use.",
+        "Event Support": {
+            "title": "Event Support Basics",
+            "description": (
+                "Learn basic teamwork and organization for events."
+            ),
+            "steps": [
+                "Understand the event schedule.",
+                "Help organize materials and equipment.",
+                "Work cooperatively with the team.",
+                "Assist guests and complete assigned tasks."
+            ]
+        },
 
-        "Event Support":
-            "Learn teamwork, organization and "
-            "event assistance.",
-
-        "Tailoring":
-            "Learn basic stitching, measurements "
-            "and garment handling."
+        "Tailoring": {
+            "title": "Tailoring Basics",
+            "description": (
+                "Learn basic stitching, measurements and garment handling."
+            ),
+            "steps": [
+                "Understand basic tailoring tools.",
+                "Learn how measurements are taken.",
+                "Practice basic stitching techniques.",
+                "Handle and organize garments carefully."
+            ]
+        }
     }
 
+    # Show the skill connected to the selected job first
+    if st.session_state.selected_skill:
 
-    for skill_name, description in skills.items():
+        selected_skill = st.session_state.selected_skill
 
-        with st.container(border=True):
+        if selected_skill in skill_lessons:
+
+            lesson = skill_lessons[selected_skill]
 
             st.subheader(
-                skill_name
+                f"Learning: {lesson['title']}"
             )
 
-            st.write(
-                description
-            )
+            st.write(lesson["description"])
 
+            st.markdown("### What you will learn")
+
+            for number, step in enumerate(
+                lesson["steps"], start=1
+            ):
+                st.write(
+                    f"**{number}.** {step}"
+                )
+
+            st.divider()
+
+            if st.button("View All Skills"):
+                st.session_state.selected_skill = None
+                st.rerun()
+
+    # Show all skills when no specific skill is selected
+    if not st.session_state.selected_skill:
+
+        st.subheader("Choose a Skill")
+
+        for skill_name, lesson in skill_lessons.items():
+
+            with st.container(border=True):
+
+                st.subheader(
+                    lesson["title"]
+                )
+
+                st.write(
+                    lesson["description"]
+                )
+
+                if st.button(
+                    "Learn This Skill",
+                    key=f"learn_{skill_name}"
+                ):
+
+                    st.session_state.selected_skill = skill_name
+                    st.rerun()
 
 # =========================================================
 # ABOUT SDG 1
