@@ -1078,202 +1078,413 @@ elif page == "My Applications":
 # LEARN SKILLS
 # =========================================================
 
+
 elif page == "Learn Skills":
 
-    st.title("Learn Skills")
+    if language == "English":
 
-    st.write(
-        "Build practical skills that can help you perform jobs "
-        "and prepare for better opportunities."
-    )
+        st.title("Learn Skills")
 
-    skill_lessons = {
+        st.write(
+            "Build practical skills that can help you perform jobs "
+            "and prepare for better opportunities."
+        )
 
-        "Gardening": {
-            "title": "Gardening Basics",
-            "description": (
-                "Learn how to care for plants and maintain a garden."
-            ),
-            "steps": [
-                "Understand basic plant care.",
-                "Learn how to prepare and maintain soil.",
-                "Learn basic watering and plant maintenance.",
-                "Keep the garden clean and organized."
-            ]
-        },
+        skill_lessons = {
 
-        "Painting": {
-            "title": "Painting Basics",
-            "description": (
-                "Learn the basic process of preparing and painting surfaces."
-            ),
-            "steps": [
-                "Prepare and clean the surface.",
-                "Understand basic painting tools.",
-                "Learn how to apply paint evenly.",
-                "Keep the work area clean and organized."
-            ]
-        },
+            "Gardening": {
+                "title": "Gardening Basics",
+                "description": (
+                    "Learn how to care for plants and maintain a garden."
+                ),
+                "steps": [
+                    "Understand basic plant care.",
+                    "Learn how to prepare and maintain soil.",
+                    "Learn basic watering and plant maintenance.",
+                    "Keep the garden clean and organized."
+                ]
+            },
 
-        "Packing": {
-            "title": "Packing Basics",
-            "description": (
-                "Learn how to pack items safely and efficiently."
-            ),
-            "steps": [
-                "Identify the item and choose suitable packaging.",
-                "Place the item securely inside the package.",
-                "Protect fragile items properly.",
-                "Check the package before it is moved or delivered."
-            ]
-        },
+            "Painting": {
+                "title": "Painting Basics",
+                "description": (
+                    "Learn the basic process of preparing and painting surfaces."
+                ),
+                "steps": [
+                    "Prepare and clean the surface.",
+                    "Understand basic painting tools.",
+                    "Learn how to apply paint evenly.",
+                    "Keep the work area clean and organized."
+                ]
+            },
 
-        "Delivery": {
-            "title": "Delivery Basics",
-            "description": (
-                "Learn basic delivery planning and customer interaction."
-            ),
-            "steps": [
-                "Check the delivery details carefully.",
-                "Plan the route before starting.",
-                "Handle the package carefully.",
-                "Communicate politely with the customer."
-            ]
-        },
+            "Packing": {
+                "title": "Packing Basics",
+                "description": (
+                    "Learn how to pack items safely and efficiently."
+                ),
+                "steps": [
+                    "Identify the item and choose suitable packaging.",
+                    "Place the item securely inside the package.",
+                    "Protect fragile items properly.",
+                    "Check the package before it is moved or delivered."
+                ]
+            },
 
-        "Cleaning": {
-            "title": "Cleaning Basics",
-            "description": (
-                "Learn basic cleaning and organization techniques."
-            ),
-            "steps": [
-                "Understand the area that needs cleaning.",
-                "Organize the cleaning tools.",
-                "Clean surfaces systematically.",
-                "Keep the area organized after finishing."
-            ]
-        },
+            "Delivery": {
+                "title": "Delivery Basics",
+                "description": (
+                    "Learn basic delivery planning and customer interaction."
+                ),
+                "steps": [
+                    "Check the delivery details carefully.",
+                    "Plan the route before starting.",
+                    "Handle the package carefully.",
+                    "Communicate politely with the customer."
+                ]
+            },
 
-        "Retail": {
-            "title": "Retail Basics",
-            "description": (
-                "Learn basic customer service and shop assistance."
-            ),
-            "steps": [
-                "Greet customers politely.",
-                "Learn how products are organized.",
-                "Keep shelves and products organized.",
-                "Assist customers clearly and respectfully."
-            ]
-        },
+            "Cleaning": {
+                "title": "Cleaning Basics",
+                "description": (
+                    "Learn basic cleaning and organization techniques."
+                ),
+                "steps": [
+                    "Understand the area that needs cleaning.",
+                    "Organize the cleaning tools.",
+                    "Clean surfaces systematically.",
+                    "Keep the area organized after finishing."
+                ]
+            },
 
-        "Cooking": {
-            "title": "Kitchen Basics",
-            "description": (
-                "Learn basic kitchen organization, preparation and safety."
-            ),
-            "steps": [
-                "Keep the workspace clean.",
-                "Understand basic kitchen tools.",
-                "Prepare ingredients carefully.",
-                "Follow safe food-handling practices."
-            ]
-        },
+            "Retail": {
+                "title": "Retail Basics",
+                "description": (
+                    "Learn basic customer service and shop assistance."
+                ),
+                "steps": [
+                    "Greet customers politely.",
+                    "Learn how products are organized.",
+                    "Keep shelves and products organized.",
+                    "Assist customers clearly and respectfully."
+                ]
+            },
 
-        "Computer Basics": {
-            "title": "Computer Basics",
-            "description": (
-                "Learn basic computer skills useful for data entry work."
-            ),
-            "steps": [
-                "Learn basic keyboard and mouse use.",
-                "Practice typing accurately.",
-                "Understand basic spreadsheet use.",
-                "Learn how to enter and organize information."
-            ]
-        },
+            "Cooking": {
+                "title": "Kitchen Basics",
+                "description": (
+                    "Learn basic kitchen organization, preparation and safety."
+                ),
+                "steps": [
+                    "Keep the workspace clean.",
+                    "Understand basic kitchen tools.",
+                    "Prepare ingredients carefully.",
+                    "Follow safe food-handling practices."
+                ]
+            },
 
-        "Event Support": {
-            "title": "Event Support Basics",
-            "description": (
-                "Learn basic teamwork and organization for events."
-            ),
-            "steps": [
-                "Understand the event schedule.",
-                "Help organize materials and equipment.",
-                "Work cooperatively with the team.",
-                "Assist guests and complete assigned tasks."
-            ]
-        },
+            "Computer Basics": {
+                "title": "Computer Basics",
+                "description": (
+                    "Learn basic computer skills useful for data entry work."
+                ),
+                "steps": [
+                    "Learn basic keyboard and mouse use.",
+                    "Practice typing accurately.",
+                    "Understand basic spreadsheet use.",
+                    "Learn how to enter and organize information."
+                ]
+            },
 
-        "Tailoring": {
-            "title": "Tailoring Basics",
-            "description": (
-                "Learn basic stitching, measurements and garment handling."
-            ),
-            "steps": [
-                "Understand basic tailoring tools.",
-                "Learn how measurements are taken.",
-                "Practice basic stitching techniques.",
-                "Handle and organize garments carefully."
-            ]
+            "Event Support": {
+                "title": "Event Support Basics",
+                "description": (
+                    "Learn basic teamwork and organization for events."
+                ),
+                "steps": [
+                    "Understand the event schedule.",
+                    "Help organize materials and equipment.",
+                    "Work cooperatively with the team.",
+                    "Assist guests and complete assigned tasks."
+                ]
+            },
+
+            "Tailoring": {
+                "title": "Tailoring Basics",
+                "description": (
+                    "Learn basic stitching, measurements and garment handling."
+                ),
+                "steps": [
+                    "Understand basic tailoring tools.",
+                    "Learn how measurements are taken.",
+                    "Practice basic stitching techniques.",
+                    "Handle and organize garments carefully."
+                ]
+            }
         }
-    }
 
-    # Show the skill connected to the selected job first
-    if st.session_state.selected_skill:
+        # Show selected skill
+        if st.session_state.selected_skill:
 
-        selected_skill = st.session_state.selected_skill
+            selected_skill = st.session_state.selected_skill
 
-        if selected_skill in skill_lessons:
+            if selected_skill in skill_lessons:
 
-            lesson = skill_lessons[selected_skill]
-
-            st.subheader(
-                f"Learning: {lesson['title']}"
-            )
-
-            st.write(lesson["description"])
-
-            st.markdown("### What you will learn")
-
-            for number, step in enumerate(
-                lesson["steps"], start=1
-            ):
-                st.write(
-                    f"**{number}.** {step}"
-                )
-
-            st.divider()
-
-            if st.button("View All Skills"):
-                st.session_state.selected_skill = None
-                st.rerun()
-
-    # Show all skills when no specific skill is selected
-    if not st.session_state.selected_skill:
-
-        st.subheader("Choose a Skill")
-
-        for skill_name, lesson in skill_lessons.items():
-
-            with st.container(border=True):
+                lesson = skill_lessons[selected_skill]
 
                 st.subheader(
-                    lesson["title"]
+                    f"Learning: {lesson['title']}"
                 )
 
                 st.write(
                     lesson["description"]
                 )
 
-                if st.button(
-                    "Learn This Skill",
-                    key=f"learn_{skill_name}"
+                st.markdown("### What you will learn")
+
+                for number, step in enumerate(
+                    lesson["steps"],
+                    start=1
                 ):
 
-                    st.session_state.selected_skill = skill_name
+                    st.write(
+                        f"**{number}.** {step}"
+                    )
+
+                st.divider()
+
+                if st.button("View All Skills"):
+
+                    st.session_state.selected_skill = None
                     st.rerun()
+
+        # Show all skills
+        if not st.session_state.selected_skill:
+
+            st.subheader("Choose a Skill")
+
+            for skill_name, lesson in skill_lessons.items():
+
+                with st.container(border=True):
+
+                    st.subheader(
+                        lesson["title"]
+                    )
+
+                    st.write(
+                        lesson["description"]
+                    )
+
+                    if st.button(
+                        "Learn This Skill",
+                        key=f"learn_{skill_name}"
+                    ):
+
+                        st.session_state.selected_skill = skill_name
+                        st.rerun()
+
+
+    else:
+
+        st.title("कौशल सीखें")
+
+        st.write(
+            "ऐसे व्यावहारिक कौशल सीखें जो आपको काम करने "
+            "और बेहतर अवसरों के लिए तैयार होने में मदद कर सकते हैं।"
+        )
+
+        skill_lessons = {
+
+            "Gardening": {
+                "title": "बागवानी की मूल बातें",
+                "description": (
+                    "पौधों की देखभाल करना और बगीचे को बनाए रखना सीखें।"
+                ),
+                "steps": [
+                    "पौधों की मूल देखभाल समझें।",
+                    "मिट्टी तैयार करना और उसकी देखभाल करना सीखें।",
+                    "पानी देने और पौधों की देखभाल की मूल बातें सीखें।",
+                    "बगीचे को साफ और व्यवस्थित रखें।"
+                ]
+            },
+
+            "Painting": {
+                "title": "पेंटिंग की मूल बातें",
+                "description": (
+                    "सतह तैयार करने और उस पर पेंट करने की मूल प्रक्रिया सीखें।"
+                ),
+                "steps": [
+                    "सतह को तैयार और साफ करें।",
+                    "पेंटिंग के मूल उपकरणों को समझें।",
+                    "पेंट को समान रूप से लगाना सीखें।",
+                    "काम की जगह को साफ और व्यवस्थित रखें।"
+                ]
+            },
+
+            "Packing": {
+                "title": "पैकिंग की मूल बातें",
+                "description": (
+                    "सामान को सुरक्षित और सही तरीके से पैक करना सीखें।"
+                ),
+                "steps": [
+                    "सामान की पहचान करें और सही पैकिंग सामग्री चुनें।",
+                    "सामान को पैकेज के अंदर सुरक्षित रखें।",
+                    "नाज़ुक सामान की सही तरह से सुरक्षा करें।",
+                    "सामान भेजने से पहले पैकेज की जाँच करें।"
+                ]
+            },
+
+            "Delivery": {
+                "title": "डिलीवरी की मूल बातें",
+                "description": (
+                    "डिलीवरी की योजना बनाना और ग्राहकों से बातचीत करना सीखें।"
+                ),
+                "steps": [
+                    "डिलीवरी की जानकारी ध्यान से जाँचें।",
+                    "शुरू करने से पहले रास्ते की योजना बनाएँ।",
+                    "सामान को सावधानी से संभालें।",
+                    "ग्राहक से विनम्रता से बात करें।"
+                ]
+            },
+
+            "Cleaning": {
+                "title": "सफाई की मूल बातें",
+                "description": (
+                    "सफाई और सामान व्यवस्थित रखने की मूल तकनीकें सीखें।"
+                ),
+                "steps": [
+                    "जिस जगह की सफाई करनी है उसे समझें।",
+                    "सफाई के उपकरण व्यवस्थित करें।",
+                    "सतहों को सही तरीके से साफ करें।",
+                    "काम पूरा होने के बाद जगह को व्यवस्थित रखें।"
+                ]
+            },
+
+            "Retail": {
+                "title": "दुकान के काम की मूल बातें",
+                "description": (
+                    "ग्राहक सेवा और दुकान में सहायता करने की मूल बातें सीखें।"
+                ),
+                "steps": [
+                    "ग्राहकों का विनम्रता से स्वागत करें।",
+                    "सामान को व्यवस्थित करने का तरीका सीखें।",
+                    "अलमारियों और सामान को व्यवस्थित रखें।",
+                    "ग्राहकों की स्पष्ट और सम्मानपूर्वक सहायता करें।"
+                ]
+            },
+
+            "Cooking": {
+                "title": "रसोई की मूल बातें",
+                "description": (
+                    "रसोई को व्यवस्थित रखना, तैयारी करना और सुरक्षा की मूल बातें सीखें।"
+                ),
+                "steps": [
+                    "काम की जगह को साफ रखें।",
+                    "रसोई के मूल उपकरणों को समझें।",
+                    "सामग्री को सावधानी से तैयार करें।",
+                    "भोजन को सुरक्षित तरीके से संभालने के नियमों का पालन करें।"
+                ]
+            },
+
+            "Computer Basics": {
+                "title": "कंप्यूटर की मूल बातें",
+                "description": (
+                    "डेटा एंट्री के काम के लिए उपयोगी कंप्यूटर कौशल सीखें।"
+                ),
+                "steps": [
+                    "कीबोर्ड और माउस का मूल उपयोग सीखें।",
+                    "सही तरीके से टाइप करने का अभ्यास करें।",
+                    "स्प्रेडशीट के मूल उपयोग को समझें।",
+                    "जानकारी दर्ज करना और व्यवस्थित करना सीखें।"
+                ]
+            },
+
+            "Event Support": {
+                "title": "कार्यक्रम सहायता की मूल बातें",
+                "description": (
+                    "कार्यक्रमों के लिए टीमवर्क और व्यवस्था की मूल बातें सीखें।"
+                ),
+                "steps": [
+                    "कार्यक्रम की समय-सारणी समझें।",
+                    "सामान और उपकरण व्यवस्थित करने में मदद करें।",
+                    "टीम के साथ मिलकर काम करें।",
+                    "मेहमानों की सहायता करें और दिए गए काम पूरे करें।"
+                ]
+            },
+
+            "Tailoring": {
+                "title": "सिलाई की मूल बातें",
+                "description": (
+                    "सिलाई, नाप और कपड़ों को संभालने की मूल बातें सीखें।"
+                ),
+                "steps": [
+                    "सिलाई के मूल उपकरणों को समझें।",
+                    "नाप लेने का तरीका सीखें।",
+                    "सिलाई की मूल तकनीकों का अभ्यास करें।",
+                    "कपड़ों को सावधानी से संभालें और व्यवस्थित रखें।"
+                ]
+            }
+        }
+
+        # Show selected skill
+        if st.session_state.selected_skill:
+
+            selected_skill = st.session_state.selected_skill
+
+            if selected_skill in skill_lessons:
+
+                lesson = skill_lessons[selected_skill]
+
+                st.subheader(
+                    f"सीख रहे हैं: {lesson['title']}"
+                )
+
+                st.write(
+                    lesson["description"]
+                )
+
+                st.markdown("### आप क्या सीखेंगे")
+
+                for number, step in enumerate(
+                    lesson["steps"],
+                    start=1
+                ):
+
+                    st.write(
+                        f"**{number}.** {step}"
+                    )
+
+                st.divider()
+
+                if st.button("सभी कौशल देखें"):
+
+                    st.session_state.selected_skill = None
+                    st.rerun()
+
+        # Show all skills
+        if not st.session_state.selected_skill:
+
+            st.subheader("एक कौशल चुनें")
+
+            for skill_name, lesson in skill_lessons.items():
+
+                with st.container(border=True):
+
+                    st.subheader(
+                        lesson["title"]
+                    )
+
+                    st.write(
+                        lesson["description"]
+                    )
+
+                    if st.button(
+                        "यह कौशल सीखें",
+                        key=f"learn_{skill_name}"
+                    ):
+
+                        st.session_state.selected_skill = skill_name
+                        st.rerun()
 
 # =========================================================
 # ABOUT SDG 1
