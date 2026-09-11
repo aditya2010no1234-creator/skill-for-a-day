@@ -157,20 +157,31 @@ if page == "Home":
             "gain practical experience at the same time."
         )
 
-        if st.button(
-    "Find Jobs",
-    type="primary",
-    use_container_width=True
-):
-    st.session_state.page = "Find Jobs"
-    st.rerun()
-    with col2:
-        st.metric(
-            "Jobs Available",
-            len(jobs)
-        )
+col1, col2 = st.columns([2, 1])
 
-    st.divider()
+with col1:
+    st.subheader("Turn opportunity into progress")
+
+    st.write(
+        "Find simple, short-term jobs, earn an income and "
+        "gain practical experience at the same time."
+    )
+
+    if st.button(
+        "Find Jobs",
+        type="primary",
+        use_container_width=True
+    ):
+        st.session_state.page = "Find Jobs"
+        st.rerun()
+
+with col2:
+    st.metric(
+        "Jobs Available",
+        len(jobs)
+    )
+
+st.divider()
 
     # Impact statistics
     st.subheader("Our Impact")
