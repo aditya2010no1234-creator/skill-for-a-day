@@ -594,6 +594,9 @@ elif page == "Find Jobs":
                                         "Pay": job["Pay"],
 
                                         "Reason": reason.strip()
+                                    
+
+                                        "Status": "Applied"
                                     }
 
                                     try:
