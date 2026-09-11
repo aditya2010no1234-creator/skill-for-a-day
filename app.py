@@ -161,7 +161,7 @@ if page == "Home":
             "gain practical experience at the same time."
         )
 
-        if st.button(
+if st.button(
     "Find Jobs",
     type="primary",
     use_container_width=True
