@@ -1486,7 +1486,6 @@ elif page == "Learn Skills":
                         st.session_state.selected_skill = skill_name
                         st.rerun()
 
-```python
 # =========================================================
 # ABOUT SDG 1
 # =========================================================
