@@ -282,22 +282,10 @@ if page == "Home":
 
     # Final message
     st.markdown(
-        """
-        <div style="
-            text-align: center;
-            padding: 25px;
-            margin-top: 20px;
-        ">
-
-            <h2>Earn → Learn → Grow</h2>
-
-            <p style="font-size: 17px;">
-                Small opportunities today can create
-                better opportunities tomorrow.
-            </p>
-
-        </div>
-        """,
+        """<div style="text-align:center; padding:25px; margin-top:20px;">
+<h2>Earn → Learn → Grow</h2>
+<p style="font-size:17px;">Small opportunities today can create better opportunities tomorrow.</p>
+</div>""",
         unsafe_allow_html=True
     )
 
