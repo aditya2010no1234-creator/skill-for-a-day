@@ -133,167 +133,262 @@ st.session_state.requested_page = page
 
 if page == "Home":
 
-    # Hero
-    st.markdown(
-        """<div style="padding:45px 35px; border-radius:20px; background:linear-gradient(135deg, #0f172a, #1e3a8a); color:white; margin-bottom:30px;">
+    if language == "English":
+
+        # Hero
+        st.markdown(
+            """<div style="padding:45px 35px; border-radius:20px; background:linear-gradient(135deg, #0f172a, #1e3a8a); color:white; margin-bottom:30px;">
 <h1 style="font-size:48px; margin-bottom:8px;">Skill-for-a-Day</h1>
 <h2 style="font-size:25px; font-weight:400; margin-bottom:15px;">Earn today. Learn for tomorrow.</h2>
 <p style="font-size:18px; max-width:800px; line-height:1.6;">A community platform connecting people with short-term paid work while helping them build practical skills for better opportunities.</p>
 </div>""",
-        unsafe_allow_html=True
-    )
-
-    # Main introduction
-    col1, col2 = st.columns([2, 1])
-
-    with col1:
-
-        st.subheader("Turn opportunity into progress")
-
-        st.write(
-            "Find simple, short-term jobs, earn an income and "
-            "gain practical experience at the same time."
+            unsafe_allow_html=True
         )
 
-        if st.button(
-            "Find Jobs",
-            type="primary",
-            use_container_width=True
-        ):
+        # Main introduction
+        col1, col2 = st.columns([2, 1])
 
-            st.session_state.requested_page = "Find Jobs"
-            st.rerun()
+        with col1:
 
+            st.subheader("Turn opportunity into progress")
 
-    with col2:
+            st.write(
+                "Find simple, short-term jobs, earn an income and "
+                "gain practical experience at the same time."
+            )
 
-        st.metric(
-            "Jobs Available",
-            len(jobs)
+            if st.button(
+                "Find Jobs",
+                type="primary",
+                use_container_width=True
+            ):
+
+                st.session_state.requested_page = "Find Jobs"
+                st.rerun()
+
+        with col2:
+
+            st.metric(
+                "Jobs Available",
+                len(jobs)
+            )
+
+        st.divider()
+
+        # Impact
+        st.subheader("Our Impact")
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            st.metric("Jobs", len(jobs))
+
+        with col2:
+            st.metric("Skills", jobs["Skill"].nunique())
+
+        with col3:
+            st.metric("Locations", jobs["Location"].nunique())
+
+        with col4:
+            st.metric("Max Daily Pay", f"₹{jobs['Pay'].max()}")
+
+        st.divider()
+
+        # How it works
+        st.subheader("How Skill-for-a-Day Works")
+
+        c1, c2, c3 = st.columns(3)
+
+        with c1:
+            st.markdown("### 01 · Find")
+            st.write(
+                "Browse short-term paid jobs available "
+                "in your area."
+            )
+
+        with c2:
+            st.markdown("### 02 · Apply")
+            st.write(
+                "Choose an opportunity that matches your "
+                "interests and submit your application."
+            )
+
+        with c3:
+            st.markdown("### 03 · Learn & Earn")
+            st.write(
+                "Complete the work, earn income and gain "
+                "practical experience."
+            )
+
+        st.divider()
+
+        # Why Skill-for-a-Day
+        st.subheader("Why Skill-for-a-Day?")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.markdown("### Income")
+            st.write(
+                "Short-term work can provide immediate earning "
+                "opportunities for people who need them."
+            )
+
+        with col2:
+            st.markdown("### Skills")
+            st.write(
+                "Every opportunity can help people develop useful "
+                "practical skills and experience."
+            )
+
+        st.divider()
+
+        # SDG 1
+        st.subheader("Connected to SDG 1 — No Poverty")
+
+        st.info(
+            "Skill-for-a-Day supports Sustainable Development "
+            "Goal 1 by connecting people with earning opportunities "
+            "while encouraging practical skill development."
         )
 
-
-    st.divider()
-
-
-    # Impact
-    st.subheader("Our Impact")
-
-    col1, col2, col3, col4 = st.columns(4)
-
-    with col1:
-        st.metric(
-            "Jobs",
-            len(jobs)
-        )
-
-    with col2:
-        st.metric(
-            "Skills",
-            jobs["Skill"].nunique()
-        )
-
-    with col3:
-        st.metric(
-            "Locations",
-            jobs["Location"].nunique()
-        )
-
-    with col4:
-        st.metric(
-            "Max Daily Pay",
-            f"₹{jobs['Pay'].max()}"
-        )
-
-
-    st.divider()
-
-
-    # How it works
-    st.subheader("How Skill-for-a-Day Works")
-
-    c1, c2, c3 = st.columns(3)
-
-    with c1:
-
-        st.markdown("### 01 · Find")
-
-        st.write(
-            "Browse short-term paid jobs available "
-            "in your area."
-        )
-
-
-    with c2:
-
-        st.markdown("### 02 · Apply")
-
-        st.write(
-            "Choose an opportunity that matches your "
-            "interests and submit your application."
-        )
-
-
-    with c3:
-
-        st.markdown("### 03 · Learn & Earn")
-
-        st.write(
-            "Complete the work, earn income and gain "
-            "practical experience."
-        )
-
-
-    st.divider()
-
-
-    # Why Skill-for-a-Day
-    st.subheader("Why Skill-for-a-Day?")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-
-        st.markdown("### Income")
-
-        st.write(
-            "Short-term work can provide immediate earning "
-            "opportunities for people who need them."
-        )
-
-
-    with col2:
-
-        st.markdown("### Skills")
-
-        st.write(
-            "Every opportunity can help people develop useful "
-            "practical skills and experience."
-        )
-
-
-    st.divider()
-
-
-    # SDG 1
-    st.subheader("Connected to SDG 1 — No Poverty")
-
-    st.info(
-        "Skill-for-a-Day supports Sustainable Development "
-        "Goal 1 by connecting people with earning opportunities "
-        "while encouraging practical skill development."
-    )
-
-
-    # Final message
-    st.markdown(
-        """<div style="text-align:center; padding:25px; margin-top:20px;">
+        # Final message
+        st.markdown(
+            """<div style="text-align:center; padding:25px; margin-top:20px;">
 <h2>Earn → Learn → Grow</h2>
 <p style="font-size:17px;">Small opportunities today can create better opportunities tomorrow.</p>
 </div>""",
-        unsafe_allow_html=True
-    )
+            unsafe_allow_html=True
+        )
 
+
+    else:
+
+        # Hero
+        st.markdown(
+            """<div style="padding:45px 35px; border-radius:20px; background:linear-gradient(135deg, #0f172a, #1e3a8a); color:white; margin-bottom:30px;">
+<h1 style="font-size:48px; margin-bottom:8px;">स्किल-फॉर-ए-डे</h1>
+<h2 style="font-size:25px; font-weight:400; margin-bottom:15px;">आज कमाएँ। कल के लिए सीखें।</h2>
+<p style="font-size:18px; max-width:800px; line-height:1.6;">एक सामुदायिक मंच जो लोगों को थोड़े समय के भुगतान वाले काम से जोड़ता है और बेहतर अवसरों के लिए उपयोगी कौशल सीखने में मदद करता है।</p>
+</div>""",
+            unsafe_allow_html=True
+        )
+
+        # Main introduction
+        col1, col2 = st.columns([2, 1])
+
+        with col1:
+
+            st.subheader("अवसर को प्रगति में बदलें")
+
+            st.write(
+                "सरल और कम समय वाले काम खोजें, आय कमाएँ और "
+                "साथ ही व्यावहारिक अनुभव प्राप्त करें।"
+            )
+
+            if st.button(
+                "काम खोजें",
+                type="primary",
+                use_container_width=True
+            ):
+
+                st.session_state.requested_page = "Find Jobs"
+                st.rerun()
+
+        with col2:
+
+            st.metric(
+                "उपलब्ध काम",
+                len(jobs)
+            )
+
+        st.divider()
+
+        # Impact
+        st.subheader("हमारा प्रभाव")
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        with col1:
+            st.metric("काम", len(jobs))
+
+        with col2:
+            st.metric("कौशल", jobs["Skill"].nunique())
+
+        with col3:
+            st.metric("स्थान", jobs["Location"].nunique())
+
+        with col4:
+            st.metric("अधिकतम दैनिक भुगतान", f"₹{jobs['Pay'].max()}")
+
+        st.divider()
+
+        # How it works
+        st.subheader("स्किल-फॉर-ए-डे कैसे काम करता है")
+
+        c1, c2, c3 = st.columns(3)
+
+        with c1:
+            st.markdown("### 01 · खोजें")
+            st.write(
+                "अपने क्षेत्र में उपलब्ध कम समय वाले "
+                "भुगतान वाले काम देखें।"
+            )
+
+        with c2:
+            st.markdown("### 02 · आवेदन करें")
+            st.write(
+                "अपनी रुचि के अनुसार काम चुनें और "
+                "आवेदन जमा करें।"
+            )
+
+        with c3:
+            st.markdown("### 03 · सीखें और कमाएँ")
+            st.write(
+                "काम पूरा करें, आय कमाएँ और "
+                "व्यावहारिक अनुभव प्राप्त करें।"
+            )
+
+        st.divider()
+
+        # Why Skill-for-a-Day
+        st.subheader("स्किल-फॉर-ए-डे क्यों?")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.markdown("### आय")
+            st.write(
+                "कम समय वाले काम उन लोगों के लिए "
+                "तुरंत आय कमाने के अवसर दे सकते हैं जिन्हें इसकी आवश्यकता है।"
+            )
+
+        with col2:
+            st.markdown("### कौशल")
+            st.write(
+                "हर काम लोगों को उपयोगी व्यावहारिक "
+                "कौशल और अनुभव विकसित करने में मदद कर सकता है।"
+            )
+
+        st.divider()
+
+        # SDG 1
+        st.subheader("SDG 1 — गरीबी समाप्त करना")
+
+        st.info(
+            "स्किल-फॉर-ए-डे लोगों को आय कमाने के अवसरों "
+            "से जोड़कर और व्यावहारिक कौशल के विकास को बढ़ावा देकर "
+            "सतत विकास लक्ष्य 1 का समर्थन करता है।"
+        )
+
+        # Final message
+        st.markdown(
+            """<div style="text-align:center; padding:25px; margin-top:20px;">
+<h2>कमाएँ → सीखें → आगे बढ़ें</h2>
+<p style="font-size:17px;">आज के छोटे अवसर कल के बेहतर अवसर बना सकते हैं।</p>
+</div>""",
+            unsafe_allow_html=True
+        )
 
 # =========================================================
 # FIND JOBS
