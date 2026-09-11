@@ -593,9 +593,8 @@ elif page == "Find Jobs":
 
                                         "Pay": job["Pay"],
 
-                                        "Reason": reason.strip()
+                                        "Reason": reason.strip(),
                                     
-
                                         "Status": "Applied"
                                     }
 
