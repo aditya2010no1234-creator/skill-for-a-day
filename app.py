@@ -105,6 +105,11 @@ if "requested_page" not in st.session_state:
 
 st.sidebar.title("Skill-for-a-Day")
 
+language = st.sidebar.radio(
+    "Language",
+    ["English", "हिन्दी"]
+)
+
 pages = [
     "Home",
     "Find Jobs",
