@@ -396,257 +396,480 @@ if page == "Home":
 
 elif page == "Find Jobs":
 
-    st.title("Find Jobs")
+    if language == "English":
 
-    st.write(
-        "Find short-term paid work opportunities "
-        "and build useful skills."
-    )
-
-
-    # Search
-    search = st.text_input(
-        "Search for a job",
-        placeholder="Example: painting, gardening..."
-    )
-
-
-    # Filters
-    col1, col2, col3 = st.columns(3)
-
-    with col1:
-
-        location = st.selectbox(
-            "Location",
-            ["All"] + sorted(
-                jobs["Location"].unique()
-            )
-        )
-
-
-    with col2:
-
-        skill = st.selectbox(
-            "Skill",
-            ["All"] + sorted(
-                jobs["Skill"].unique()
-            )
-        )
-
-
-    with col3:
-
-        level = st.selectbox(
-            "Experience Level",
-            ["All"] + sorted(
-                jobs["Level"].unique()
-            )
-        )
-
-
-    # Filter jobs
-    filtered = jobs.copy()
-
-    if search:
-
-        filtered = filtered[
-            filtered["Job"].str.contains(
-                search,
-                case=False,
-                na=False
-            )
-        ]
-
-
-    if location != "All":
-
-        filtered = filtered[
-            filtered["Location"] == location
-        ]
-
-
-    if skill != "All":
-
-        filtered = filtered[
-            filtered["Skill"] == skill
-        ]
-
-
-    if level != "All":
-
-        filtered = filtered[
-            filtered["Level"] == level
-        ]
-
-
-    st.divider()
-
-
-    # Job results
-    if filtered.empty:
-
-        st.warning(
-            "No jobs found. Try changing your filters."
-        )
-
-    else:
+        st.title("Find Jobs")
 
         st.write(
-            f"**{len(filtered)} job(s) available**"
+            "Find short-term paid work opportunities "
+            "and build useful skills."
         )
 
+        # Search
+        search = st.text_input(
+            "Search for a job",
+            placeholder="Example: painting, gardening..."
+        )
 
-        for index, job in filtered.iterrows():
+        # Filters
+        col1, col2, col3 = st.columns(3)
 
-            with st.container(border=True):
+        with col1:
 
-                col1, col2 = st.columns([4, 1])
-
-                with col1:
-
-                    st.subheader(
-                        job["Job"]
-                    )
-
-                    st.write(
-                        f"**Location:** {job['Location']}"
-                    )
-
-                    st.write(
-                        f"**Pay:** ₹{job['Pay']}"
-                    )
-
-                    st.write(
-                        f"**Duration:** {job['Hours']} hours"
-                    )
-
-                    st.write(
-                        f"**Skill:** {job['Skill']}"
-                    )
-
-                    st.write(
-                        f"**Experience:** {job['Level']}"
-                    )
-
-                with col2:
-
-                    st.write("")
-
-                    if st.button(
-                        "Apply",
-                        key=f"apply_{index}",
-                        use_container_width=True
-                    ):
-
-                        st.session_state.selected_job = job["Job"]
-
-                    if st.button(
-                        "Learn Skill",
-                        key=f"learn_skill_{index}",
-                        use_container_width=True
-                    ):
-
-                        st.session_state.selected_skill = job["Skill"]
-                        st.session_state.requested_page = "Learn Skills"
-                        st.rerun()
-                        
-
-            # Application form
-            if st.session_state.selected_job == job["Job"]:
-
-                st.subheader(
-                    f"Apply for {job['Job']}"
+            location = st.selectbox(
+                "Location",
+                ["All"] + sorted(
+                    jobs["Location"].unique()
                 )
+            )
 
-                with st.form(
-                    f"application_form_{index}"
-                ):
+        with col2:
 
-                    name = st.text_input(
-                        "Your Name"
-                    )
+            skill = st.selectbox(
+                "Skill",
+                ["All"] + sorted(
+                    jobs["Skill"].unique()
+                )
+            )
 
-                    phone = st.text_input(
-                        "Phone Number"
-                    )
+        with col3:
 
-                    reason = st.text_area(
-                        "Why are you suitable for this job?"
-                    )
+            level = st.selectbox(
+                "Experience Level",
+                ["All"] + sorted(
+                    jobs["Level"].unique()
+                )
+            )
 
-                    submitted = st.form_submit_button(
-                        "Submit Application"
-                    )
+        # Filter jobs
+        filtered = jobs.copy()
 
+        if search:
 
-                    if submitted:
+            filtered = filtered[
+                filtered["Job"].str.contains(
+                    search,
+                    case=False,
+                    na=False
+                )
+            ]
 
-                        if not name or not phone:
+        if location != "All":
 
-                            st.error(
-                                "Please enter your name "
-                                "and phone number."
+            filtered = filtered[
+                filtered["Location"] == location
+            ]
+
+        if skill != "All":
+
+            filtered = filtered[
+                filtered["Skill"] == skill
+            ]
+
+        if level != "All":
+
+            filtered = filtered[
+                filtered["Level"] == level
+            ]
+
+        st.divider()
+
+        # Job results
+        if filtered.empty:
+
+            st.warning(
+                "No jobs found. Try changing your filters."
+            )
+
+        else:
+
+            st.write(
+                f"**{len(filtered)} job(s) available**"
+            )
+
+            for index, job in filtered.iterrows():
+
+                with st.container(border=True):
+
+                    col1, col2 = st.columns([4, 1])
+
+                    with col1:
+
+                        st.subheader(
+                            job["Job"]
+                        )
+
+                        st.write(
+                            f"**Location:** {job['Location']}"
+                        )
+
+                        st.write(
+                            f"**Pay:** ₹{job['Pay']}"
+                        )
+
+                        st.write(
+                            f"**Duration:** {job['Hours']} hours"
+                        )
+
+                        st.write(
+                            f"**Skill:** {job['Skill']}"
+                        )
+
+                        st.write(
+                            f"**Experience:** {job['Level']}"
+                        )
+
+                    with col2:
+
+                        st.write("")
+
+                        if st.button(
+                            "Apply",
+                            key=f"apply_{index}",
+                            use_container_width=True
+                        ):
+
+                            st.session_state.selected_job = job["Job"]
+
+                        if st.button(
+                            "Learn Skill",
+                            key=f"learn_skill_{index}",
+                            use_container_width=True
+                        ):
+
+                            st.session_state.selected_skill = job["Skill"]
+                            st.session_state.requested_page = "Learn Skills"
+                            st.rerun()
+
+                    # Application form
+                    if st.session_state.selected_job == job["Job"]:
+
+                        st.subheader(
+                            f"Apply for {job['Job']}"
+                        )
+
+                        with st.form(
+                            f"application_form_{index}"
+                        ):
+
+                            name = st.text_input(
+                                "Your Name"
                             )
 
-                        else:
+                            phone = st.text_input(
+                                "Phone Number"
+                            )
 
-                            application = {
+                            reason = st.text_area(
+                                "Why are you suitable for this job?"
+                            )
 
-                                "ID": phone.strip(),
+                            submitted = st.form_submit_button(
+                                "Submit Application"
+                            )
 
-                                "Name": name.strip(),
+                            if submitted:
 
-                                "Phone": phone.strip(),
+                                if not name or not phone:
 
-                                "Job": job["Job"],
-
-                                "Location": job["Location"],
-
-                                "Pay": job["Pay"],
-
-                                "Reason": reason.strip()
-                            }
-
-
-                            try:
-
-                                response = requests.post(
-                                    GOOGLE_SCRIPT_URL,
-                                    json=application,
-                                    timeout=15
-                                )
-
-
-                                if response.status_code == 200:
-
-                                    st.success(
-                                        "Application submitted successfully!"
+                                    st.error(
+                                        "Please enter your name "
+                                        "and phone number."
                                     )
-
-                                    st.info(
-                                        "Your application has been "
-                                        "saved permanently. You can "
-                                        "view it later from My Applications "
-                                        "using the same phone number."
-                                    )
-
-                                    st.session_state.selected_job = None
-
 
                                 else:
 
+                                    application = {
+
+                                        "ID": phone.strip(),
+
+                                        "Name": name.strip(),
+
+                                        "Phone": phone.strip(),
+
+                                        "Job": job["Job"],
+
+                                        "Location": job["Location"],
+
+                                        "Pay": job["Pay"],
+
+                                        "Reason": reason.strip()
+                                    }
+
+                                    try:
+
+                                        response = requests.post(
+                                            GOOGLE_SCRIPT_URL,
+                                            json=application,
+                                            timeout=15
+                                        )
+
+                                        if response.status_code == 200:
+
+                                            st.success(
+                                                "Application submitted successfully!"
+                                            )
+
+                                            st.info(
+                                                "Your application has been "
+                                                "saved permanently. You can "
+                                                "view it later from My Applications "
+                                                "using the same phone number."
+                                            )
+
+                                            st.session_state.selected_job = None
+
+                                        else:
+
+                                            st.error(
+                                                "Could not save the application. "
+                                                "Please try again."
+                                            )
+
+                                    except Exception:
+
+                                        st.error(
+                                            "Connection error. "
+                                            "Please try again."
+                                        )
+
+
+    else:
+
+        st.title("काम खोजें")
+
+        st.write(
+            "कम समय वाले भुगतान वाले काम खोजें "
+            "और उपयोगी कौशल सीखें।"
+        )
+
+        # Search
+        search = st.text_input(
+            "काम खोजें",
+            placeholder="उदाहरण: पेंटिंग, बागवानी..."
+        )
+
+        # Filters
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+
+            location = st.selectbox(
+                "स्थान",
+                ["सभी"] + sorted(
+                    jobs["Location"].unique()
+                )
+            )
+
+        with col2:
+
+            skill = st.selectbox(
+                "कौशल",
+                ["सभी"] + sorted(
+                    jobs["Skill"].unique()
+                )
+            )
+
+        with col3:
+
+            level = st.selectbox(
+                "अनुभव का स्तर",
+                ["सभी"] + sorted(
+                    jobs["Level"].unique()
+                )
+            )
+
+        # Filter jobs
+        filtered = jobs.copy()
+
+        if search:
+
+            filtered = filtered[
+                filtered["Job"].str.contains(
+                    search,
+                    case=False,
+                    na=False
+                )
+            ]
+
+        if location != "सभी":
+
+            filtered = filtered[
+                filtered["Location"] == location
+            ]
+
+        if skill != "सभी":
+
+            filtered = filtered[
+                filtered["Skill"] == skill
+            ]
+
+        if level != "सभी":
+
+            filtered = filtered[
+                filtered["Level"] == level
+            ]
+
+        st.divider()
+
+        # Job results
+        if filtered.empty:
+
+            st.warning(
+                "कोई काम नहीं मिला। फ़िल्टर बदलकर देखें।"
+            )
+
+        else:
+
+            st.write(
+                f"**{len(filtered)} काम उपलब्ध हैं**"
+            )
+
+            for index, job in filtered.iterrows():
+
+                with st.container(border=True):
+
+                    col1, col2 = st.columns([4, 1])
+
+                    with col1:
+
+                        st.subheader(
+                            job["Job"]
+                        )
+
+                        st.write(
+                            f"**स्थान:** {job['Location']}"
+                        )
+
+                        st.write(
+                            f"**भुगतान:** ₹{job['Pay']}"
+                        )
+
+                        st.write(
+                            f"**अवधि:** {job['Hours']} घंटे"
+                        )
+
+                        st.write(
+                            f"**कौशल:** {job['Skill']}"
+                        )
+
+                        st.write(
+                            f"**अनुभव:** {job['Level']}"
+                        )
+
+                    with col2:
+
+                        st.write("")
+
+                        if st.button(
+                            "आवेदन करें",
+                            key=f"apply_{index}",
+                            use_container_width=True
+                        ):
+
+                            st.session_state.selected_job = job["Job"]
+
+                        if st.button(
+                            "कौशल सीखें",
+                            key=f"learn_skill_{index}",
+                            use_container_width=True
+                        ):
+
+                            st.session_state.selected_skill = job["Skill"]
+                            st.session_state.requested_page = "Learn Skills"
+                            st.rerun()
+
+                    # Application form
+                    if st.session_state.selected_job == job["Job"]:
+
+                        st.subheader(
+                            f"{job['Job']} के लिए आवेदन करें"
+                        )
+
+                        with st.form(
+                            f"application_form_{index}"
+                        ):
+
+                            name = st.text_input(
+                                "आपका नाम"
+                            )
+
+                            phone = st.text_input(
+                                "फ़ोन नंबर"
+                            )
+
+                            reason = st.text_area(
+                                "आप इस काम के लिए उपयुक्त क्यों हैं?"
+                            )
+
+                            submitted = st.form_submit_button(
+                                "आवेदन जमा करें"
+                            )
+
+                            if submitted:
+
+                                if not name or not phone:
+
                                     st.error(
-                                        "Could not save the application. "
-                                        "Please try again."
+                                        "कृपया अपना नाम और "
+                                        "फ़ोन नंबर दर्ज करें।"
                                     )
 
+                                else:
 
-                            except Exception:
+                                    application = {
 
-                                st.error(
-                                    "Connection error. "
-                                    "Please try again."
-                                )
+                                        "ID": phone.strip(),
+
+                                        "Name": name.strip(),
+
+                                        "Phone": phone.strip(),
+
+                                        "Job": job["Job"],
+
+                                        "Location": job["Location"],
+
+                                        "Pay": job["Pay"],
+
+                                        "Reason": reason.strip()
+                                    }
+
+                                    try:
+
+                                        response = requests.post(
+                                            GOOGLE_SCRIPT_URL,
+                                            json=application,
+                                            timeout=15
+                                        )
+
+                                        if response.status_code == 200:
+
+                                            st.success(
+                                                "आवेदन सफलतापूर्वक जमा हो गया!"
+                                            )
+
+                                            st.info(
+                                                "आपका आवेदन स्थायी रूप से "
+                                                "सहेज लिया गया है। आप बाद में "
+                                                "उसी फ़ोन नंबर से अपने आवेदन "
+                                                "देख सकते हैं।"
+                                            )
+
+                                            st.session_state.selected_job = None
+
+                                        else:
+
+                                            st.error(
+                                                "आवेदन सहेजा नहीं जा सका। "
+                                                "कृपया फिर से प्रयास करें।"
+                                            )
+
+                                    except Exception:
+
+                                        st.error(
+                                            "कनेक्शन में समस्या हुई। "
+                                            "कृपया फिर से प्रयास करें।"
+                                        )
 
 
 # =========================================================
