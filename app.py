@@ -4,173 +4,16 @@ import requests
 
 
 # =========================================================
-# PAGE SETTINGS
+# SETTINGS
 # =========================================================
 
 st.set_page_config(
     page_title="Skill-for-a-Day",
     page_icon="💼",
-    layout="wide",
-    initial_sidebar_state="expanded"
+    layout="wide"
 )
 
 GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyP1cYNf2kVgXXcwGG4d2pLUqD9rOl6nqmCscymAdYQhRdH5Hl2X9soh2S-FHjAQo9x/exec"
-
-
-# =========================================================
-# CUSTOM CSS
-# =========================================================
-
-st.markdown(
-    """
-    <style>
-
-    /* -------------------------
-       General
-    ------------------------- */
-
-    .main {
-        padding-top: 1rem;
-    }
-
-    section[data-testid="stSidebar"] {
-        padding-top: 1rem;
-    }
-
-
-    /* -------------------------
-       Hero
-    ------------------------- */
-
-    .hero-box {
-        padding: 42px 38px;
-        border-radius: 22px;
-        background: linear-gradient(135deg, #0f172a, #1d4ed8);
-        color: white;
-        margin-bottom: 28px;
-        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
-    }
-
-
-    /* -------------------------
-       Theme-aware cards
-    ------------------------- */
-
-    .feature-card {
-        padding: 24px;
-        border-radius: 18px;
-        border: 1px solid var(--secondary-background-color);
-        background: var(--secondary-background-color);
-        color: var(--text-color);
-        min-height: 165px;
-    }
-
-    .feature-card h3 {
-        color: var(--text-color);
-        margin-top: 0;
-    }
-
-    .feature-card p {
-        color: var(--text-color);
-        line-height: 1.6;
-    }
-
-
-    /* -------------------------
-       Job cards
-    ------------------------- */
-
-    .job-info {
-        padding: 20px;
-        border-radius: 16px;
-        border: 1px solid var(--secondary-background-color);
-        background: var(--secondary-background-color);
-        color: var(--text-color);
-    }
-
-    .job-title {
-        font-size: 23px;
-        font-weight: 700;
-        color: var(--text-color);
-        margin-bottom: 5px;
-    }
-
-    .job-location {
-        color: var(--text-color);
-        opacity: 0.75;
-        margin-bottom: 15px;
-    }
-
-    .job-pay {
-        font-size: 22px;
-        font-weight: 700;
-        color: var(--text-color);
-    }
-
-    .job-meta {
-        font-size: 13px;
-        color: var(--text-color);
-        opacity: 0.7;
-    }
-
-
-    /* -------------------------
-       Help box
-    ------------------------- */
-
-    .help-box {
-        padding: 22px;
-        border-radius: 18px;
-        background: var(--secondary-background-color);
-        border: 1px solid var(--secondary-background-color);
-        color: var(--text-color);
-        margin-top: 20px;
-        margin-bottom: 20px;
-    }
-
-    .help-box h3 {
-        color: var(--text-color);
-    }
-
-    .help-box p {
-        color: var(--text-color);
-        line-height: 1.6;
-    }
-
-
-    /* -------------------------
-       Footer
-    ------------------------- */
-
-    .footer {
-        text-align: center;
-        padding: 35px 10px 10px 10px;
-        color: var(--text-color);
-        opacity: 0.65;
-        font-size: 14px;
-    }
-
-
-    /* -------------------------
-       Mobile
-    ------------------------- */
-
-    @media (max-width: 768px) {
-
-        .hero-box {
-            padding: 30px 22px;
-        }
-
-        .job-title {
-            font-size: 20px;
-        }
-
-    }
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 
 # =========================================================
@@ -205,29 +48,13 @@ jobs = pd.DataFrame({
     ],
 
     "Pay": [
-        350,
-        500,
-        400,
-        450,
-        350,
-        400,
-        450,
-        500,
-        550,
-        450
+        350, 500, 400, 450, 350,
+        400, 450, 500, 550, 450
     ],
 
     "Hours": [
-        5,
-        6,
-        5,
-        6,
-        4,
-        5,
-        5,
-        4,
-        6,
-        5
+        5, 6, 5, 6, 4,
+        5, 5, 5, 6, 5
     ],
 
     "Skill": [
@@ -259,54 +86,14 @@ jobs = pd.DataFrame({
 
 
 # =========================================================
-# SKILLS
-# =========================================================
-
-skills = {
-    "Gardening":
-        "Learn basic plant care, soil preparation and garden maintenance.",
-
-    "Painting":
-        "Learn basic surface preparation, painting and finishing.",
-
-    "Packing":
-        "Learn safe, organised and efficient packaging techniques.",
-
-    "Delivery":
-        "Learn basic delivery planning, communication and customer interaction.",
-
-    "Cleaning":
-        "Learn professional cleaning, organisation and workplace hygiene.",
-
-    "Retail":
-        "Learn customer service, stocking and basic shop management.",
-
-    "Cooking":
-        "Learn basic kitchen safety, preparation and food handling.",
-
-    "Computer Basics":
-        "Learn typing, spreadsheets, data entry and basic computer use.",
-
-    "Event Support":
-        "Learn teamwork, organisation and event assistance.",
-
-    "Tailoring":
-        "Learn basic stitching, measurements and garment handling."
-}
-
-
-# =========================================================
 # SESSION STATE
 # =========================================================
-
-if "requested_page" not in st.session_state:
-    st.session_state.requested_page = "Home"
 
 if "selected_job" not in st.session_state:
     st.session_state.selected_job = None
 
-if "language" not in st.session_state:
-    st.session_state.language = "English"
+if "requested_page" not in st.session_state:
+    st.session_state.requested_page = "Home"
 
 
 # =========================================================
@@ -314,31 +101,6 @@ if "language" not in st.session_state:
 # =========================================================
 
 st.sidebar.title("Skill-for-a-Day")
-
-st.sidebar.caption(
-    "Earn today. Learn for tomorrow."
-)
-
-# Language selector
-if st.session_state.language == "English":
-    language_title = "Language"
-else:
-    language_title = "भाषा"
-
-language = st.sidebar.radio(
-    language_title,
-    ["English", "हिन्दी"],
-    index=0 if st.session_state.language == "English" else 1
-)
-
-st.session_state.language = language
-
-st.sidebar.divider()
-
-
-# =========================================================
-# NAVIGATION LABELS
-# =========================================================
 
 pages = [
     "Home",
@@ -348,46 +110,11 @@ pages = [
     "About SDG 1"
 ]
 
-if language == "हिन्दी":
-
-    page_labels = [
-        "होम",
-        "काम खोजें",
-        "मेरे आवेदन",
-        "कौशल सीखें",
-        "SDG 1 के बारे में"
-    ]
-
-    navigation_title = "नेविगेशन"
-
-else:
-
-    page_labels = [
-        "Home",
-        "Find Jobs",
-        "My Applications",
-        "Learn Skills",
-        "About SDG 1"
-    ]
-
-    navigation_title = "Navigation"
-
-
-current_index = pages.index(
-    st.session_state.requested_page
+page = st.sidebar.radio(
+    "Navigation",
+    pages,
+    index=pages.index(st.session_state.requested_page)
 )
-
-selected_label = st.sidebar.radio(
-    navigation_title,
-    page_labels,
-    index=current_index
-)
-
-selected_index = page_labels.index(
-    selected_label
-)
-
-page = pages[selected_index]
 
 st.session_state.requested_page = page
 
@@ -401,25 +128,41 @@ if page == "Home":
     # Hero
     st.markdown(
         """
-        <div class="hero-box">
+        <div style="
+            padding: 45px 35px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            color: white;
+            margin-bottom: 30px;
+        ">
+
+            <h1 style="
+                font-size: 48px;
+                margin-bottom: 8px;
+            ">
+                Skill-for-a-Day
+            </h1>
+
+            <h2 style="
+                font-size: 25px;
+                font-weight: 400;
+                margin-bottom: 15px;
+            ">
+                Earn today. Learn for tomorrow.
+            </h2>
+
+            <p style="
+                font-size: 18px;
+                max-width: 800px;
+                line-height: 1.6;
+            ">
+                A community platform connecting people with
+                short-term paid work while helping them build
+                practical skills for better opportunities.
+            </p>
+
+        </div>
         """,
-        unsafe_allow_html=True
-    )
-
-    st.title("Skill-for-a-Day")
-
-    st.subheader(
-        "Earn today. Learn for tomorrow."
-    )
-
-    st.write(
-        "A community platform connecting people with "
-        "short-term paid work while helping them build "
-        "practical skills for better opportunities."
-    )
-
-    st.markdown(
-        "</div>",
         unsafe_allow_html=True
     )
 
@@ -429,35 +172,15 @@ if page == "Home":
 
     with col1:
 
-        if language == "हिन्दी":
+        st.subheader("Turn opportunity into progress")
 
-            st.subheader(
-                "अवसर को प्रगति में बदलें"
-            )
-
-            st.write(
-                "छोटे समय के काम खोजें, कमाएँ और "
-                "साथ-साथ उपयोगी अनुभव प्राप्त करें।"
-            )
-
-            button_text = "काम खोजें"
-
-        else:
-
-            st.subheader(
-                "Turn opportunity into progress"
-            )
-
-            st.write(
-                "Find short-term work, earn an income and "
-                "gain practical experience at the same time."
-            )
-
-            button_text = "Find Jobs"
-
+        st.write(
+            "Find simple, short-term jobs, earn an income and "
+            "gain practical experience at the same time."
+        )
 
         if st.button(
-            button_text,
+            "Find Jobs",
             type="primary",
             use_container_width=True
         ):
@@ -468,363 +191,144 @@ if page == "Home":
 
     with col2:
 
-        if language == "हिन्दी":
-            st.metric(
-                "उपलब्ध काम",
-                len(jobs)
-            )
-        else:
-            st.metric(
-                "Jobs Available",
-                len(jobs)
-            )
+        st.metric(
+            "Jobs Available",
+            len(jobs)
+        )
 
 
     st.divider()
 
 
     # Impact
-    if language == "हिन्दी":
+    st.subheader("Our Impact")
 
-        st.subheader("हमारा प्रभाव")
+    col1, col2, col3, col4 = st.columns(4)
 
-        c1, c2, c3, c4 = st.columns(4)
+    with col1:
+        st.metric(
+            "Jobs",
+            len(jobs)
+        )
 
-        with c1:
-            st.metric("काम", len(jobs))
+    with col2:
+        st.metric(
+            "Skills",
+            jobs["Skill"].nunique()
+        )
 
-        with c2:
-            st.metric("कौशल", jobs["Skill"].nunique())
+    with col3:
+        st.metric(
+            "Locations",
+            jobs["Location"].nunique()
+        )
 
-        with c3:
-            st.metric("स्थान", jobs["Location"].nunique())
-
-        with c4:
-            st.metric(
-                "अधिकतम दैनिक भुगतान",
-                f"₹{jobs['Pay'].max()}"
-            )
-
-    else:
-
-        st.subheader("Our Impact")
-
-        c1, c2, c3, c4 = st.columns(4)
-
-        with c1:
-            st.metric("Jobs", len(jobs))
-
-        with c2:
-            st.metric(
-                "Skills",
-                jobs["Skill"].nunique()
-            )
-
-        with c3:
-            st.metric(
-                "Locations",
-                jobs["Location"].nunique()
-            )
-
-        with c4:
-            st.metric(
-                "Max Daily Pay",
-                f"₹{jobs['Pay'].max()}"
-            )
+    with col4:
+        st.metric(
+            "Max Daily Pay",
+            f"₹{jobs['Pay'].max()}"
+        )
 
 
     st.divider()
 
 
     # How it works
-    if language == "हिन्दी":
+    st.subheader("How Skill-for-a-Day Works")
 
-        st.subheader(
-            "Skill-for-a-Day कैसे काम करता है?"
+    c1, c2, c3 = st.columns(3)
+
+    with c1:
+
+        st.markdown("### 01 · Find")
+
+        st.write(
+            "Browse short-term paid jobs available "
+            "in your area."
         )
 
-        c1, c2, c3 = st.columns(3)
 
-        with c1:
+    with c2:
 
-            st.markdown(
-                """
-                <div class="feature-card">
-                    <h3>01 · खोजें</h3>
-                    <p>
-                        अपने आसपास उपलब्ध छोटे समय के काम देखें।
-                    </p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+        st.markdown("### 02 · Apply")
 
-        with c2:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-                    <h3>02 · आवेदन करें</h3>
-                    <p>
-                        अपनी पसंद के काम के लिए आवेदन करें।
-                    </p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        with c3:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-                    <h3>03 · कमाएँ और सीखें</h3>
-                    <p>
-                        काम करें, कमाएँ और उपयोगी कौशल प्राप्त करें।
-                    </p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-    else:
-
-        st.subheader(
-            "How Skill-for-a-Day Works"
+        st.write(
+            "Choose an opportunity that matches your "
+            "interests and submit your application."
         )
 
-        c1, c2, c3 = st.columns(3)
 
-        with c1:
+    with c3:
 
-            st.markdown(
-                """
-                <div class="feature-card">
-                    <h3>01 · Find</h3>
-                    <p>
-                        Browse short-term paid jobs available in your area.
-                    </p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+        st.markdown("### 03 · Learn & Earn")
 
-        with c2:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-                    <h3>02 · Apply</h3>
-                    <p>
-                        Choose an opportunity that matches your interests.
-                    </p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        with c3:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-                    <h3>03 · Learn & Earn</h3>
-                    <p>
-                        Complete the work, earn income and gain experience.
-                    </p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+        st.write(
+            "Complete the work, earn income and gain "
+            "practical experience."
+        )
 
 
     st.divider()
 
 
     # Why Skill-for-a-Day
-    if language == "हिन्दी":
+    st.subheader("Why Skill-for-a-Day?")
 
-        st.subheader(
-            "Skill-for-a-Day क्यों?"
+    col1, col2 = st.columns(2)
+
+    with col1:
+
+        st.markdown("### Income")
+
+        st.write(
+            "Short-term work can provide immediate earning "
+            "opportunities for people who need them."
         )
 
-        c1, c2 = st.columns(2)
 
-        with c1:
+    with col2:
 
-            st.markdown(
-                """
-                <div class="feature-card">
+        st.markdown("### Skills")
 
-                    <h3>कमाई</h3>
-
-                    <p>
-                        छोटे समय के काम लोगों को आय कमाने
-                        का अवसर दे सकते हैं।
-                    </p>
-
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        with c2:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-
-                    <h3>कौशल</h3>
-
-                    <p>
-                        हर काम लोगों को उपयोगी व्यावहारिक
-                        कौशल और अनुभव प्राप्त करने में मदद कर सकता है।
-                    </p>
-
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-    else:
-
-        st.subheader(
-            "Why Skill-for-a-Day?"
+        st.write(
+            "Every opportunity can help people develop useful "
+            "practical skills and experience."
         )
-
-        c1, c2 = st.columns(2)
-
-        with c1:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-
-                    <h3>Income</h3>
-
-                    <p>
-                        Short-term work can provide immediate
-                        earning opportunities for people who need them.
-                    </p>
-
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        with c2:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-
-                    <h3>Skills</h3>
-
-                    <p>
-                        Every opportunity can help people develop
-                        useful practical skills and experience.
-                    </p>
-
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
 
 
     st.divider()
 
 
-    # SDG
-    if language == "हिन्दी":
+    # SDG 1
+    st.subheader("Connected to SDG 1 — No Poverty")
 
-        st.subheader(
-            "SDG 1 — गरीबी समाप्त करना"
-        )
-
-        st.info(
-            "Skill-for-a-Day लोगों को कमाई के अवसरों से "
-            "जोड़कर और व्यावहारिक कौशल सीखने में मदद करके "
-            "SDG 1 का समर्थन करता है।"
-        )
-
-    else:
-
-        st.subheader(
-            "Connected to SDG 1 — No Poverty"
-        )
-
-        st.info(
-            "Skill-for-a-Day supports Sustainable Development "
-            "Goal 1 by connecting people with earning opportunities "
-            "while encouraging practical skill development."
-        )
+    st.info(
+        "Skill-for-a-Day supports Sustainable Development "
+        "Goal 1 by connecting people with earning opportunities "
+        "while encouraging practical skill development."
+    )
 
 
-    # Help section
-    st.divider()
+    # Final message
+    st.markdown(
+        """
+        <div style="
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+        ">
 
-    if language == "हिन्दी":
+            <h2>Earn → Learn → Grow</h2>
 
-        st.markdown(
-            """
-            <div class="help-box">
+            <p style="font-size: 17px;">
+                Small opportunities today can create
+                better opportunities tomorrow.
+            </p>
 
-                <h3>आवेदन करने में मदद चाहिए?</h3>
-
-                <p>
-                    यदि वेबसाइट पढ़ने या आवेदन करने में परेशानी हो,
-                    तो परिवार के सदस्य, स्वयंसेवक, NGO या सामुदायिक
-                    केंद्र से मदद ली जा सकती है।
-                </p>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        st.markdown(
-            """
-            <div class="footer">
-                <h2>कमाएँ → सीखें → आगे बढ़ें</h2>
-                <p>
-                    आज का छोटा अवसर कल का बेहतर अवसर बन सकता है।
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    else:
-
-        st.markdown(
-            """
-            <div class="help-box">
-
-                <h3>Need help applying?</h3>
-
-                <p>
-                    If someone has difficulty reading or using the
-                    website, a family member, volunteer, NGO or
-                    community centre can help them apply.
-                </p>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-        st.markdown(
-            """
-            <div class="footer">
-                <h2>Earn → Learn → Grow</h2>
-                <p>
-                    Small opportunities today can create
-                    better opportunities tomorrow.
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 # =========================================================
@@ -833,182 +337,105 @@ if page == "Home":
 
 elif page == "Find Jobs":
 
-    if language == "हिन्दी":
+    st.title("Find Jobs")
 
-        st.title("काम खोजें")
+    st.write(
+        "Find short-term paid work opportunities "
+        "and build useful skills."
+    )
 
-        st.write(
-            "अपने लिए सही छोटा काम खोजें और नए कौशल सीखें।"
+
+    # Search
+    search = st.text_input(
+        "Search for a job",
+        placeholder="Example: painting, gardening..."
+    )
+
+
+    # Filters
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+
+        location = st.selectbox(
+            "Location",
+            ["All"] + sorted(
+                jobs["Location"].unique()
+            )
         )
 
-        search = st.text_input(
-            "काम खोजें",
-            placeholder="जैसे: पेंटिंग, गार्डनिंग..."
+
+    with col2:
+
+        skill = st.selectbox(
+            "Skill",
+            ["All"] + sorted(
+                jobs["Skill"].unique()
+            )
         )
 
-        c1, c2, c3 = st.columns(3)
 
-        with c1:
+    with col3:
 
-            location = st.selectbox(
-                "स्थान",
-                ["सभी"] + sorted(
-                    jobs["Location"].unique()
-                )
+        level = st.selectbox(
+            "Experience Level",
+            ["All"] + sorted(
+                jobs["Level"].unique()
             )
+        )
 
-        with c2:
 
-            skill = st.selectbox(
-                "कौशल",
-                ["सभी"] + sorted(
-                    jobs["Skill"].unique()
-                )
+    # Filter jobs
+    filtered = jobs.copy()
+
+    if search:
+
+        filtered = filtered[
+            filtered["Job"].str.contains(
+                search,
+                case=False,
+                na=False
             )
+        ]
 
-        with c3:
 
-            level = st.selectbox(
-                "अनुभव स्तर",
-                ["सभी"] + sorted(
-                    jobs["Level"].unique()
-                )
-            )
+    if location != "All":
 
-        filtered = jobs.copy()
+        filtered = filtered[
+            filtered["Location"] == location
+        ]
 
-        if search:
 
-            filtered = filtered[
-                filtered["Job"].str.contains(
-                    search,
-                    case=False,
-                    na=False
-                )
-            ]
+    if skill != "All":
 
-        if location != "सभी":
+        filtered = filtered[
+            filtered["Skill"] == skill
+        ]
 
-            filtered = filtered[
-                filtered["Location"] == location
-            ]
 
-        if skill != "सभी":
+    if level != "All":
 
-            filtered = filtered[
-                filtered["Skill"] == skill
-            ]
+        filtered = filtered[
+            filtered["Level"] == level
+        ]
 
-        if level != "सभी":
 
-            filtered = filtered[
-                filtered["Level"] == level
-            ]
+    st.divider()
 
-        st.divider()
 
-        st.write(
-            f"**{len(filtered)} काम उपलब्ध हैं**"
+    # Job results
+    if filtered.empty:
+
+        st.warning(
+            "No jobs found. Try changing your filters."
         )
 
     else:
-
-        st.title("Find Jobs")
-
-        st.write(
-            "Find a suitable short-term job and build useful skills."
-        )
-
-        search = st.text_input(
-            "Search for a job",
-            placeholder="Example: painting, gardening..."
-        )
-
-        c1, c2, c3 = st.columns(3)
-
-        with c1:
-
-            location = st.selectbox(
-                "Location",
-                ["All"] + sorted(
-                    jobs["Location"].unique()
-                )
-            )
-
-        with c2:
-
-            skill = st.selectbox(
-                "Skill",
-                ["All"] + sorted(
-                    jobs["Skill"].unique()
-                )
-            )
-
-        with c3:
-
-            level = st.selectbox(
-                "Experience Level",
-                ["All"] + sorted(
-                    jobs["Level"].unique()
-                )
-            )
-
-        filtered = jobs.copy()
-
-        if search:
-
-            filtered = filtered[
-                filtered["Job"].str.contains(
-                    search,
-                    case=False,
-                    na=False
-                )
-            ]
-
-        if location != "All":
-
-            filtered = filtered[
-                filtered["Location"] == location
-            ]
-
-        if skill != "All":
-
-            filtered = filtered[
-                filtered["Skill"] == skill
-            ]
-
-        if level != "All":
-
-            filtered = filtered[
-                filtered["Level"] == level
-            ]
-
-        st.divider()
 
         st.write(
             f"**{len(filtered)} job(s) available**"
         )
 
-
-    # -----------------------------------------------------
-    # JOB RESULTS
-    # -----------------------------------------------------
-
-    if filtered.empty:
-
-        if language == "हिन्दी":
-
-            st.warning(
-                "कोई काम नहीं मिला। फ़िल्टर बदलकर देखें।"
-            )
-
-        else:
-
-            st.warning(
-                "No jobs found. Try changing your filters."
-            )
-
-    else:
 
         for index, job in filtered.iterrows():
 
@@ -1018,280 +445,140 @@ elif page == "Find Jobs":
 
                 with col1:
 
-                    st.markdown(
-                        f'<div class="job-title">{job["Job"]}</div>',
-                        unsafe_allow_html=True
+                    st.subheader(
+                        job["Job"]
                     )
-
-                    st.markdown(
-                        f'<div class="job-location">'
-                        f'Location: {job["Location"]}'
-                        f'</div>',
-                        unsafe_allow_html=True
-                    )
-
-                    m1, m2, m3 = st.columns(3)
-
-                    with m1:
-
-                        st.markdown(
-                            f"""
-                            <div class="job-pay">
-                                ₹{job["Pay"]}
-                            </div>
-                            <div class="job-meta">
-                                {"दैनिक भुगतान" if language == "हिन्दी" else "Daily pay"}
-                            </div>
-                            """,
-                            unsafe_allow_html=True
-                        )
-
-                    with m2:
-
-                        st.markdown(
-                            f"""
-                            <div class="job-pay">
-                                {job["Hours"]} hrs
-                            </div>
-                            <div class="job-meta">
-                                {"काम का समय" if language == "हिन्दी" else "Work duration"}
-                            </div>
-                            """,
-                            unsafe_allow_html=True
-                        )
-
-                    with m3:
-
-                        st.markdown(
-                            f"""
-                            <div class="job-pay">
-                                {job["Level"]}
-                            </div>
-                            <div class="job-meta">
-                                {"अनुभव स्तर" if language == "हिन्दी" else "Experience"}
-                            </div>
-                            """,
-                            unsafe_allow_html=True
-                        )
 
                     st.write(
-                        f"**Skill / कौशल:** {job['Skill']}"
+                        f"**Location:** {job['Location']}"
                     )
+
+                    st.write(
+                        f"**Pay:** ₹{job['Pay']}"
+                    )
+
+                    st.write(
+                        f"**Duration:** {job['Hours']} hours"
+                    )
+
+                    st.write(
+                        f"**Skill:** {job['Skill']}"
+                    )
+
+                    st.write(
+                        f"**Experience:** {job['Level']}"
+                    )
+
 
                 with col2:
 
                     st.write("")
 
-                    button_text = (
-                        "आवेदन करें"
-                        if language == "हिन्दी"
-                        else "Apply Now"
-                    )
-
                     if st.button(
-                        button_text,
+                        "Apply",
                         key=f"apply_{index}",
-                        type="primary",
                         use_container_width=True
                     ):
 
                         st.session_state.selected_job = job["Job"]
-                        st.rerun()
 
 
-            # -------------------------------------------------
-            # APPLICATION FORM
-            # -------------------------------------------------
-
+            # Application form
             if st.session_state.selected_job == job["Job"]:
 
-                st.markdown("---")
+                st.subheader(
+                    f"Apply for {job['Job']}"
+                )
 
-                if language == "हिन्दी":
+                with st.form(
+                    f"application_form_{index}"
+                ):
 
-                    st.subheader(
-                        f"{job['Job']} के लिए आवेदन"
+                    name = st.text_input(
+                        "Your Name"
                     )
 
-                    st.info(
-                        f"भुगतान: ₹{job['Pay']} | "
-                        f"समय: {job['Hours']} घंटे | "
-                        f"स्थान: {job['Location']}"
+                    phone = st.text_input(
+                        "Phone Number"
                     )
 
-                    with st.form(
-                        f"application_form_{index}"
-                    ):
-
-                        name = st.text_input(
-                            "आपका नाम"
-                        )
-
-                        phone = st.text_input(
-                            "मोबाइल नंबर"
-                        )
-
-                        reason = st.text_area(
-                            "आप इस काम के लिए सही क्यों हैं?"
-                        )
-
-                        submitted = st.form_submit_button(
-                            "आवेदन जमा करें",
-                            type="primary"
-                        )
-
-                else:
-
-                    st.subheader(
-                        f"Apply for {job['Job']}"
+                    reason = st.text_area(
+                        "Why are you suitable for this job?"
                     )
 
-                    st.info(
-                        f"Pay: ₹{job['Pay']} | "
-                        f"Duration: {job['Hours']} hours | "
-                        f"Location: {job['Location']}"
+                    submitted = st.form_submit_button(
+                        "Submit Application"
                     )
 
-                    with st.form(
-                        f"application_form_{index}"
-                    ):
 
-                        name = st.text_input(
-                            "Your Name"
-                        )
+                    if submitted:
 
-                        phone = st.text_input(
-                            "Phone Number"
-                        )
-
-                        reason = st.text_area(
-                            "Why are you suitable for this job?"
-                        )
-
-                        submitted = st.form_submit_button(
-                            "Submit Application",
-                            type="primary"
-                        )
-
-
-                if submitted:
-
-                    if not name.strip() or not phone.strip():
-
-                        if language == "हिन्दी":
+                        if not name or not phone:
 
                             st.error(
-                                "कृपया अपना नाम और मोबाइल नंबर दर्ज करें।"
+                                "Please enter your name "
+                                "and phone number."
                             )
 
                         else:
 
-                            st.error(
-                                "Please enter your name and phone number."
-                            )
+                            application = {
 
-                    else:
+                                "ID": phone.strip(),
 
-                        application = {
-                            "ID": phone.strip(),
-                            "Name": name.strip(),
-                            "Phone": phone.strip(),
-                            "Job": job["Job"],
-                            "Location": job["Location"],
-                            "Pay": job["Pay"],
-                            "Reason": reason.strip()
-                        }
+                                "Name": name.strip(),
 
-                        try:
+                                "Phone": phone.strip(),
 
-                            response = requests.post(
-                                GOOGLE_SCRIPT_URL,
-                                json=application,
-                                timeout=15
-                            )
+                                "Job": job["Job"],
 
-                            if response.status_code == 200:
+                                "Location": job["Location"],
 
-                                if language == "हिन्दी":
+                                "Pay": job["Pay"],
 
-                                    st.success(
-                                        "आवेदन सफलतापूर्वक जमा हो गया!"
-                                    )
+                                "Reason": reason.strip()
+                            }
 
-                                    st.info(
-                                        "आपका आवेदन सेव हो गया है। "
-                                        "आप My Applications में उसी "
-                                        "मोबाइल नंबर से इसे देख सकते हैं।"
-                                    )
 
-                                else:
+                            try:
+
+                                response = requests.post(
+                                    GOOGLE_SCRIPT_URL,
+                                    json=application,
+                                    timeout=15
+                                )
+
+
+                                if response.status_code == 200:
 
                                     st.success(
                                         "Application submitted successfully!"
                                     )
 
                                     st.info(
-                                        "Your application has been saved. "
-                                        "You can view it later from "
-                                        "My Applications using the same phone number."
+                                        "Your application has been "
+                                        "saved permanently. You can "
+                                        "view it later from My Applications "
+                                        "using the same phone number."
                                     )
 
-                                st.session_state.selected_job = None
+                                    st.session_state.selected_job = None
 
-                            else:
+
+                                else:
+
+                                    st.error(
+                                        "Could not save the application. "
+                                        "Please try again."
+                                    )
+
+
+                            except Exception:
 
                                 st.error(
-                                    "Could not save the application. "
+                                    "Connection error. "
                                     "Please try again."
                                 )
-
-                        except Exception:
-
-                            st.error(
-                                "Connection error. Please try again."
-                            )
-
-
-    # Help
-    st.divider()
-
-    if language == "हिन्दी":
-
-        st.markdown(
-            """
-            <div class="help-box">
-
-                <h3>आवेदन करने में मदद चाहिए?</h3>
-
-                <p>
-                    यदि आपको वेबसाइट पढ़ने या आवेदन करने में
-                    परेशानी हो रही है, तो परिवार के सदस्य,
-                    स्वयंसेवक, NGO या सामुदायिक केंद्र से मदद लें।
-                </p>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
-    else:
-
-        st.markdown(
-            """
-            <div class="help-box">
-
-                <h3>Need help applying?</h3>
-
-                <p>
-                    If someone has difficulty reading or using the
-                    website, a family member, volunteer, NGO or
-                    community centre can help them apply.
-                </p>
-
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
 
 
 # =========================================================
@@ -1300,60 +587,30 @@ elif page == "Find Jobs":
 
 elif page == "My Applications":
 
-    if language == "हिन्दी":
+    st.title("My Applications")
 
-        st.title("मेरे आवेदन")
-
-        st.write(
-            "अपने आवेदन देखने के लिए वही मोबाइल नंबर डालें "
-            "जिसका इस्तेमाल आवेदन करते समय किया था।"
-        )
-
-        phone = st.text_input(
-            "मोबाइल नंबर",
-            placeholder="अपना मोबाइल नंबर दर्ज करें"
-        )
-
-        view_button = st.button(
-            "मेरे आवेदन देखें",
-            type="primary"
-        )
-
-    else:
-
-        st.title("My Applications")
-
-        st.write(
-            "Enter the same phone number you used while applying "
-            "to view your saved applications."
-        )
-
-        phone = st.text_input(
-            "Phone Number",
-            placeholder="Enter your phone number"
-        )
-
-        view_button = st.button(
-            "View My Applications",
-            type="primary"
-        )
+    st.write(
+        "Enter the same phone number you used while applying "
+        "to view your saved applications."
+    )
 
 
-    if view_button:
+    phone = st.text_input(
+        "Phone Number",
+        placeholder="Enter your phone number"
+    )
 
-        if not phone.strip():
 
-            if language == "हिन्दी":
+    if st.button(
+        "View My Applications",
+        type="primary"
+    ):
 
-                st.warning(
-                    "कृपया अपना मोबाइल नंबर दर्ज करें।"
-                )
+        if not phone:
 
-            else:
-
-                st.warning(
-                    "Please enter your phone number."
-                )
+            st.warning(
+                "Please enter your phone number."
+            )
 
         else:
 
@@ -1367,83 +624,64 @@ elif page == "My Applications":
                     timeout=15
                 )
 
+
                 if response.status_code == 200:
 
                     data = response.json()
 
+
                     if data:
 
-                        if language == "हिन्दी":
-
-                            st.success(
-                                f"{len(data)} आवेदन मिले।"
-                            )
-
-                        else:
-
-                            st.success(
-                                f"Found {len(data)} application(s)."
-                            )
+                        st.success(
+                            f"Found {len(data)} application(s)."
+                        )
 
 
                         for application in data:
 
-                            with st.container(border=True):
+                            with st.container(
+                                border=True
+                            ):
 
                                 st.subheader(
                                     application["Job"]
                                 )
 
-                                c1, c2 = st.columns(2)
-
-                                with c1:
-
-                                    st.write(
-                                        f"**Name / नाम:** "
-                                        f"{application['Name']}"
-                                    )
-
-                                    st.write(
-                                        f"**Location / स्थान:** "
-                                        f"{application['Location']}"
-                                    )
-
-                                with c2:
-
-                                    st.write(
-                                        f"**Pay / भुगतान:** "
-                                        f"₹{application['Pay']}"
-                                    )
-
-                                    st.write(
-                                        "**Status / स्थिति:** "
-                                        "Application Received"
-                                    )
+                                st.write(
+                                    f"**Name:** "
+                                    f"{application['Name']}"
+                                )
 
                                 st.write(
-                                    f"**Reason / कारण:** "
+                                    f"**Location:** "
+                                    f"{application['Location']}"
+                                )
+
+                                st.write(
+                                    f"**Pay:** "
+                                    f"₹{application['Pay']}"
+                                )
+
+                                st.write(
+                                    f"**Reason:** "
                                     f"{application['Reason']}"
                                 )
 
+
                     else:
 
-                        if language == "हिन्दी":
+                        st.info(
+                            "No applications were found "
+                            "for this phone number."
+                        )
 
-                            st.info(
-                                "इस मोबाइल नंबर से कोई आवेदन नहीं मिला।"
-                            )
-
-                        else:
-
-                            st.info(
-                                "No applications were found for this phone number."
-                            )
 
                 else:
 
                     st.error(
                         "Could not retrieve applications."
                     )
+
 
             except Exception:
 
@@ -1458,23 +696,55 @@ elif page == "My Applications":
 
 elif page == "Learn Skills":
 
-    if language == "हिन्दी":
+    st.title("Learn Skills")
 
-        st.title("कौशल सीखें")
+    st.write(
+        "Skill-for-a-Day is not only about earning money. "
+        "It also helps people develop practical skills."
+    )
 
-        st.write(
-            "यह प्लेटफ़ॉर्म केवल कमाई के बारे में नहीं है। "
-            "यह उपयोगी कौशल सीखने में भी मदद करता है।"
-        )
 
-    else:
+    skills = {
 
-        st.title("Learn Skills")
+        "Gardening":
+            "Learn basic plant care, soil preparation "
+            "and garden maintenance.",
 
-        st.write(
-            "Skill-for-a-Day is not only about earning money. "
-            "It also helps people develop useful practical skills."
-        )
+        "Painting":
+            "Learn basic wall preparation, painting "
+            "and finishing.",
+
+        "Packing":
+            "Learn safe and efficient packaging techniques.",
+
+        "Delivery":
+            "Learn basic delivery planning and "
+            "customer interaction.",
+
+        "Cleaning":
+            "Learn professional cleaning and "
+            "organization techniques.",
+
+        "Retail":
+            "Learn customer service, stocking and "
+            "basic shop management.",
+
+        "Cooking":
+            "Learn basic kitchen safety, preparation "
+            "and food handling.",
+
+        "Computer Basics":
+            "Learn typing, spreadsheets, data entry "
+            "and basic computer use.",
+
+        "Event Support":
+            "Learn teamwork, organization and "
+            "event assistance.",
+
+        "Tailoring":
+            "Learn basic stitching, measurements "
+            "and garment handling."
+    }
 
 
     for skill_name, description in skills.items():
@@ -1496,173 +766,63 @@ elif page == "Learn Skills":
 
 elif page == "About SDG 1":
 
-    if language == "हिन्दी":
+    st.title("SDG 1 — No Poverty")
 
-        st.title(
-            "SDG 1 — गरीबी समाप्त करना"
-        )
+    st.write(
+        "Sustainable Development Goal 1 aims to end "
+        "poverty in all its forms everywhere."
+    )
 
-        st.write(
-            "Sustainable Development Goal 1 का उद्देश्य "
-            "हर जगह गरीबी को समाप्त करना है।"
-        )
 
-        st.divider()
+    st.header("The Problem")
 
-        st.header("समस्या")
+    st.write(
+        "Many people facing poverty may not have access "
+        "to stable employment, formal qualifications or "
+        "opportunities to learn new skills. At the same time, "
+        "households and local businesses often need help "
+        "with small tasks."
+    )
 
-        st.write(
-            "गरीबी का सामना करने वाले कई लोगों के पास स्थायी "
-            "रोज़गार, औपचारिक योग्यता या नए कौशल सीखने के "
-            "पर्याप्त अवसर नहीं होते। दूसरी ओर, स्थानीय "
-            "दुकानों, व्यवसायों और घरों को छोटे कामों के लिए "
-            "मदद की आवश्यकता होती है।"
-        )
 
-        st.header("हमारा समाधान")
+    st.header("Our Solution")
 
-        st.write(
-            "Skill-for-a-Day लोगों को छोटे समय के भुगतान वाले "
-            "कामों से जोड़ता है और साथ ही उन्हें उपयोगी "
-            "व्यावहारिक कौशल सीखने का अवसर देता है।"
-        )
+    st.write(
+        "Skill-for-a-Day creates a community system where "
+        "people can find short paid work opportunities while "
+        "gaining useful practical skills."
+    )
 
-        st.header("अपेक्षित प्रभाव")
 
-        c1, c2 = st.columns(2)
+    st.header("Expected Impact")
 
-        with c1:
+    col1, col2 = st.columns(2)
 
-            st.markdown(
-                """
-                <div class="feature-card">
+    with col1:
 
-                    <h3>कमाई</h3>
-
-                    <p>
-                        लोगों को कम समय में आय कमाने
-                        के अवसर मिल सकते हैं।
-                    </p>
-
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        with c2:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-
-                    <h3>कौशल</h3>
-
-                    <p>
-                        लोगों को ऐसे व्यावहारिक कौशल सीखने
-                        में मदद मिलती है जो भविष्य के काम में
-                        उपयोगी हो सकते हैं।
-                    </p>
-
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        st.divider()
-
-        st.success(
-            "कमाएँ → सीखें → आगे बढ़ें"
-        )
-
-    else:
-
-        st.title(
-            "SDG 1 — No Poverty"
-        )
+        st.subheader("Income")
 
         st.write(
-            "Sustainable Development Goal 1 aims to end "
-            "poverty in all its forms everywhere."
+            "Provides short-term earning opportunities "
+            "for people who need them."
         )
 
-        st.divider()
 
-        st.header("The Problem")
+    with col2:
+
+        st.subheader("Skills")
 
         st.write(
-            "Many people facing poverty may not have access "
-            "to stable employment, formal qualifications or "
-            "opportunities to learn useful skills. At the same "
-            "time, households and local businesses often need "
-            "help with small tasks."
-        )
-
-        st.header("Our Solution")
-
-        st.write(
-            "Skill-for-a-Day creates a community system where "
-            "people can find short-term paid work opportunities "
-            "while gaining useful practical skills."
-        )
-
-        st.header("Expected Impact")
-
-        c1, c2 = st.columns(2)
-
-        with c1:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-
-                    <h3>Income</h3>
-
-                    <p>
-                        Provides short-term earning opportunities
-                        for people who need them.
-                    </p>
-
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        with c2:
-
-            st.markdown(
-                """
-                <div class="feature-card">
-
-                    <h3>Skills</h3>
-
-                    <p>
-                        Helps people develop practical skills that
-                        can improve future employment opportunities.
-                    </p>
-
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        st.divider()
-
-        st.success(
-            "Skill-for-a-Day connects opportunity, income "
-            "and skill development to help communities move "
-            "towards a future with less poverty."
+            "Helps people develop practical skills that "
+            "can improve future employment opportunities."
         )
 
 
-# =========================================================
-# FOOTER
-# =========================================================
+    st.divider()
 
-st.markdown(
-    """
-    <div class="footer">
-        Skill-for-a-Day · A community initiative supporting SDG 1
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+
+    st.success(
+        "Skill-for-a-Day connects opportunity, income "
+        "and skill development to help communities move "
+        "towards a future with less poverty."
+    )
