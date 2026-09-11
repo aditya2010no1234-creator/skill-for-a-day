@@ -958,6 +958,11 @@ elif page == "My Applications":
                                         f"{application['Reason']}"
                                     )
 
+                                    st.write(
+                                        f"**Status:** "
+                                        f"{application['Status']}"
+                                    )
+
                         else:
 
                             st.info(
@@ -1053,6 +1058,11 @@ elif page == "My Applications":
                                     st.write(
                                         f"**कारण:** "
                                         f"{application['Reason']}"
+                                    )
+
+                                    st.write(
+                                        f"**स्थिति:** "
+                                        f"{application['Status']}"
                                     )
 
                         else:
