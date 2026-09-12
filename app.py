@@ -1756,28 +1756,28 @@ elif page == "Admin Dashboard":
                                     f"{application['Reason']}"
                                 )
 
+                                status_options = [
+                                    "Applied",
+                                    "Under Review",
+                                    "Accepted",
+                                    "Rejected"
+                                ]
+        
                                 current_status = application.get(
                                     "Status",
                                     "Applied"
                                 )
 
+                                if current_status not in status_options:
+                                    current_status = "Applied"
+
                                 new_status = st.selectbox(
                                     "Application Status",
-                                    [
-                                        "Applied",
-                                        "Under Review",
-                                        "Accepted",
-                                        "Rejected"
-                                    ],
-                                    index=[
-                                        "Applied",
-                                        "Under Review",
-                                        "Accepted",
-                                        "Rejected"
-                                    ].index(current_status),
+                                    status_options,
+                                    index=status_options.index(current_status),
                                     key=f"status_{number}_{application['ID']}"
                                 )
-
+                                
                                 if st.button(
                                     "Update Status",
                                     key=f"update_{number}_{application['ID']}",
@@ -1932,25 +1932,25 @@ elif page == "Admin Dashboard":
                                     f"{application['Reason']}"
                                 )
 
+                                status_options = [
+                                    "Applied",
+                                    "Under Review",
+                                    "Accepted",
+                                    "Rejected"
+                                ]
+
                                 current_status = application.get(
                                     "Status",
                                     "Applied"
                                 )
 
+                                if current_status not in status_options:
+                                    current_status = "Applied"
+
                                 new_status = st.selectbox(
                                     "आवेदन की स्थिति",
-                                    [
-                                        "Applied",
-                                        "Under Review",
-                                        "Accepted",
-                                        "Rejected"
-                                    ],
-                                    index=[
-                                        "Applied",
-                                        "Under Review",
-                                        "Accepted",
-                                        "Rejected"
-                                    ].index(current_status),
+                                    status_options,
+                                    index=status_options.index(current_status),
                                     key=f"status_hi_{number}_{application['ID']}"
                                 )
 
