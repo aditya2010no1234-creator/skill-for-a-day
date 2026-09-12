@@ -120,10 +120,15 @@ pages = [
     "About SDG 1"
 ]
 
+current_page = st.session_state.requested_page
+
+if current_page not in pages:
+    current_page = "Home"
+
 page = st.sidebar.radio(
     "Navigation",
     pages,
-    index=pages.index(st.session_state.requested_page)
+    index=pages.index(current_page)
 )
 
 st.session_state.requested_page = page
