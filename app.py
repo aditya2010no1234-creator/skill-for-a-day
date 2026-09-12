@@ -122,19 +122,24 @@ pages = [
     "About SDG 1"
 ]
 
-current_page = st.session_state.requested_page
+if admin_mode:
 
-if current_page not in pages:
-    current_page = "Home"
+    page = "Admin Dashboard"
 
-page = st.sidebar.radio(
-    "Navigation",
-    pages,
-    index=pages.index(current_page)
-)
+else:
+
+    current_page = st.session_state.requested_page
+
+    if current_page not in pages:
+        current_page = "Home"
+
+    page = st.sidebar.radio(
+        "Navigation",
+        pages,
+        index=pages.index(current_page)
+    )
 
 st.session_state.requested_page = page
-
 
 # =========================================================
 # HOME
