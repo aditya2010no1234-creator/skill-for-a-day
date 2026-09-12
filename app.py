@@ -13,6 +13,8 @@ st.set_page_config(
     layout="wide"
 )
 
+admin_mode = st.query_params.get("admin") == "true"
+
 GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyP1cYNf2kVgXXcwGG4d2pLUqD9rOl6nqmCscymAdYQhRdH5Hl2X9soh2S-FHjAQo9x/exec"
 
 ADMIN_PIN = "9911"
