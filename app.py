@@ -1066,10 +1066,16 @@ elif page == "My Applications":
                                         f"{application['Reason']}"
                                     )
 
-                                    st.write(
-                                        f"**स्थिति:** "
-                                        f"{application['Status']}"
-                                    )
+                                    status = application.get("Status", "Applied")
+
+                                    if status == "Accepted":
+                                        st.success("स्थिति: स्वीकृत")
+                                    elif status == "Rejected":
+                                        st.error("स्थिति: अस्वीकृत")
+                                    elif status == "Under Review":
+                                        st.warning("स्थिति: समीक्षा में")
+                                    else:
+                                        st.info("स्थिति: आवेदन किया गया")
 
                         else:
 
