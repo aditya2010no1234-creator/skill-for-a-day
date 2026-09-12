@@ -953,10 +953,16 @@ elif page == "My Applications":
                                         f"₹{application['Pay']}"
                                     )
 
-                                    st.write(
-                                        f"**Reason:** "
-                                        f"{application['Reason']}"
-                                    )
+                                    status = application.get("Status", "Applied")
+
+                                    if status == "Accepted":
+                                        st.success("Status: Accepted")
+                                    elif status == "Rejected":
+                                        st.error("Status: Rejected")
+                                    elif status == "Under Review":
+                                        st.warning("Status: Under Review")
+                                    else:
+                                        st.info("Status: Applied")
 
                                     st.write(
                                         f"**Status:** "
