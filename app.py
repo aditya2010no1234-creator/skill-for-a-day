@@ -15,6 +15,8 @@ st.set_page_config(
 
 GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyP1cYNf2kVgXXcwGG4d2pLUqD9rOl6nqmCscymAdYQhRdH5Hl2X9soh2S-FHjAQo9x/exec"
 
+ADMIN_PIN = "9911"
+
 
 # =========================================================
 # JOB DATA
@@ -115,7 +117,8 @@ pages = [
     "Find Jobs",
     "My Applications",
     "Learn Skills",
-    "About SDG 1"
+    "About SDG 1",
+    "Admin Dashboard"
 ]
 
 page = st.sidebar.radio(
@@ -1632,3 +1635,196 @@ elif page == "About SDG 1":
             "एक साथ जोड़कर समुदायों को कम गरीबी वाले "
             "बेहतर भविष्य की ओर बढ़ने में मदद करता है।"
         )
+
+# =========================================================
+# ADMIN DASHBOARD
+# =========================================================
+
+elif page == "Admin Dashboard":
+
+    if language == "English":
+
+        st.title("Admin Dashboard")
+
+        st.write(
+            "Manage applications and update their status."
+        )
+
+        pin = st.text_input(
+            "Admin PIN",
+            type="password"
+        )
+
+        if pin != ADMIN_PIN:
+
+            if pin:
+                st.error("Incorrect Admin PIN.")
+
+            st.info(
+                "Enter the Admin PIN to access the dashboard."
+            )
+
+        else:
+
+            st.success("Admin access granted.")
+
+            try:
+
+                response = requests.get(
+                    GOOGLE_SCRIPT_URL,
+                    params={"admin": "true"},
+                    timeout=15
+                )
+
+                if response.status_code == 200:
+
+                    data = response.json()
+
+                    if data:
+
+                        applications_df = pd.DataFrame(data)
+
+                        st.subheader(
+                            f"Total Applications: {len(applications_df)}"
+                        )
+
+                        # Status filter
+                        status_filter = st.selectbox(
+                            "Filter by Status",
+                            [
+                                "All",
+                                "Applied",
+                                "Under Review",
+                                "Accepted",
+                                "Rejected"
+                            ]
+                        )
+
+                        filtered_apps = applications_df.copy()
+
+                        if status_filter != "All":
+
+                            filtered_apps = filtered_apps[
+                                filtered_apps["Status"] == status_filter
+                            ]
+
+                        st.write(
+                            f"Showing {len(filtered_apps)} application(s)"
+                        )
+
+                        st.dataframe(
+                            filtered_apps,
+                            use_container_width=True,
+                            hide_index=True
+                        )
+
+                    else:
+
+                        st.info(
+                            "No applications have been submitted yet."
+                        )
+
+                else:
+
+                    st.error(
+                        "Could not retrieve applications."
+                    )
+
+            except Exception as e:
+
+                st.error(
+                    f"Connection error: {e}"
+                )
+
+    else:
+
+        st.title("एडमिन डैशबोर्ड")
+
+        st.write(
+            "आवेदनों को देखें और उनकी स्थिति बदलें।"
+        )
+
+        pin = st.text_input(
+            "एडमिन पिन",
+            type="password"
+        )
+
+        if pin != ADMIN_PIN:
+
+            if pin:
+                st.error("गलत एडमिन पिन।")
+
+            st.info(
+                "डैशबोर्ड खोलने के लिए एडमिन पिन दर्ज करें।"
+            )
+
+        else:
+
+            st.success("एडमिन एक्सेस मिल गया।")
+
+            try:
+
+                response = requests.get(
+                    GOOGLE_SCRIPT_URL,
+                    params={"admin": "true"},
+                    timeout=15
+                )
+
+                if response.status_code == 200:
+
+                    data = response.json()
+
+                    if data:
+
+                        applications_df = pd.DataFrame(data)
+
+                        st.subheader(
+                            f"कुल आवेदन: {len(applications_df)}"
+                        )
+
+                        status_filter = st.selectbox(
+                            "स्थिति के अनुसार फ़िल्टर करें",
+                            [
+                                "सभी",
+                                "Applied",
+                                "Under Review",
+                                "Accepted",
+                                "Rejected"
+                            ]
+                        )
+
+                        filtered_apps = applications_df.copy()
+
+                        if status_filter != "सभी":
+
+                            filtered_apps = filtered_apps[
+                                filtered_apps["Status"] == status_filter
+                            ]
+
+                        st.write(
+                            f"{len(filtered_apps)} आवेदन दिखाए जा रहे हैं"
+                        )
+
+                        st.dataframe(
+                            filtered_apps,
+                            use_container_width=True,
+                            hide_index=True
+                        )
+
+                    else:
+
+                        st.info(
+                            "अभी तक कोई आवेदन जमा नहीं हुआ है।"
+                        )
+
+                else:
+
+                    st.error(
+                        "आवेदन प्राप्त नहीं किए जा सके।"
+                    )
+
+            except Exception as e:
+
+                st.error(
+                    f"कनेक्शन में समस्या: {e}"
+                )
