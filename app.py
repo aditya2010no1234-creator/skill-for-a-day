@@ -1647,7 +1647,7 @@ elif page == "Admin Dashboard":
         st.title("Admin Dashboard")
 
         st.write(
-            "Manage applications and update their status."
+            "View applications and manage their status."
         )
 
         pin = st.text_input(
@@ -1682,13 +1682,10 @@ elif page == "Admin Dashboard":
 
                     if data:
 
-                        applications_df = pd.DataFrame(data)
-
                         st.subheader(
-                            f"Total Applications: {len(applications_df)}"
+                            f"Total Applications: {len(data)}"
                         )
 
-                        # Status filter
                         status_filter = st.selectbox(
                             "Filter by Status",
                             [
@@ -1700,23 +1697,107 @@ elif page == "Admin Dashboard":
                             ]
                         )
 
-                        filtered_apps = applications_df.copy()
+                        filtered_apps = data
 
                         if status_filter != "All":
 
-                            filtered_apps = filtered_apps[
-                                filtered_apps["Status"] == status_filter
+                            filtered_apps = [
+                                app for app in data
+                                if app.get("Status", "Applied") == status_filter
                             ]
 
                         st.write(
                             f"Showing {len(filtered_apps)} application(s)"
                         )
 
-                        st.dataframe(
-                            filtered_apps,
-                            use_container_width=True,
-                            hide_index=True
-                        )
+                        for number, application in enumerate(
+                            filtered_apps
+                        ):
+
+                            with st.container(border=True):
+
+                                st.subheader(
+                                    application["Job"]
+                                )
+
+                                st.write(
+                                    f"**Name:** "
+                                    f"{application['Name']}"
+                                )
+
+                                st.write(
+                                    f"**Phone:** "
+                                    f"{application['Phone']}"
+                                )
+
+                                st.write(
+                                    f"**Location:** "
+                                    f"{application['Location']}"
+                                )
+
+                                st.write(
+                                    f"**Pay:** "
+                                    f"₹{application['Pay']}"
+                                )
+
+                                st.write(
+                                    f"**Reason:** "
+                                    f"{application['Reason']}"
+                                )
+
+                                current_status = application.get(
+                                    "Status",
+                                    "Applied"
+                                )
+
+                                new_status = st.selectbox(
+                                    "Application Status",
+                                    [
+                                        "Applied",
+                                        "Under Review",
+                                        "Accepted",
+                                        "Rejected"
+                                    ],
+                                    index=[
+                                        "Applied",
+                                        "Under Review",
+                                        "Accepted",
+                                        "Rejected"
+                                    ].index(current_status),
+                                    key=f"status_{number}_{application['ID']}"
+                                )
+
+                                if st.button(
+                                    "Update Status",
+                                    key=f"update_{number}_{application['ID']}",
+                                    type="primary"
+                                ):
+
+                                    update_data = {
+                                        "action": "update_status",
+                                        "ID": application["ID"],
+                                        "Status": new_status
+                                    }
+
+                                    update_response = requests.post(
+                                        GOOGLE_SCRIPT_URL,
+                                        json=update_data,
+                                        timeout=15
+                                    )
+
+                                    if update_response.status_code == 200:
+
+                                        st.success(
+                                            "Status updated successfully!"
+                                        )
+
+                                        st.rerun()
+
+                                    else:
+
+                                        st.error(
+                                            "Could not update status."
+                                        )
 
                     else:
 
@@ -1736,12 +1817,13 @@ elif page == "Admin Dashboard":
                     f"Connection error: {e}"
                 )
 
+
     else:
 
         st.title("एडमिन डैशबोर्ड")
 
         st.write(
-            "आवेदनों को देखें और उनकी स्थिति बदलें।"
+            "आवेदन देखें और उनकी स्थिति बदलें।"
         )
 
         pin = st.text_input(
@@ -1776,10 +1858,8 @@ elif page == "Admin Dashboard":
 
                     if data:
 
-                        applications_df = pd.DataFrame(data)
-
                         st.subheader(
-                            f"कुल आवेदन: {len(applications_df)}"
+                            f"कुल आवेदन: {len(data)}"
                         )
 
                         status_filter = st.selectbox(
@@ -1793,23 +1873,107 @@ elif page == "Admin Dashboard":
                             ]
                         )
 
-                        filtered_apps = applications_df.copy()
+                        filtered_apps = data
 
                         if status_filter != "सभी":
 
-                            filtered_apps = filtered_apps[
-                                filtered_apps["Status"] == status_filter
+                            filtered_apps = [
+                                app for app in data
+                                if app.get("Status", "Applied") == status_filter
                             ]
 
                         st.write(
                             f"{len(filtered_apps)} आवेदन दिखाए जा रहे हैं"
                         )
 
-                        st.dataframe(
-                            filtered_apps,
-                            use_container_width=True,
-                            hide_index=True
-                        )
+                        for number, application in enumerate(
+                            filtered_apps
+                        ):
+
+                            with st.container(border=True):
+
+                                st.subheader(
+                                    application["Job"]
+                                )
+
+                                st.write(
+                                    f"**नाम:** "
+                                    f"{application['Name']}"
+                                )
+
+                                st.write(
+                                    f"**फ़ोन:** "
+                                    f"{application['Phone']}"
+                                )
+
+                                st.write(
+                                    f"**स्थान:** "
+                                    f"{application['Location']}"
+                                )
+
+                                st.write(
+                                    f"**भुगतान:** "
+                                    f"₹{application['Pay']}"
+                                )
+
+                                st.write(
+                                    f"**कारण:** "
+                                    f"{application['Reason']}"
+                                )
+
+                                current_status = application.get(
+                                    "Status",
+                                    "Applied"
+                                )
+
+                                new_status = st.selectbox(
+                                    "आवेदन की स्थिति",
+                                    [
+                                        "Applied",
+                                        "Under Review",
+                                        "Accepted",
+                                        "Rejected"
+                                    ],
+                                    index=[
+                                        "Applied",
+                                        "Under Review",
+                                        "Accepted",
+                                        "Rejected"
+                                    ].index(current_status),
+                                    key=f"status_hi_{number}_{application['ID']}"
+                                )
+
+                                if st.button(
+                                    "स्थिति अपडेट करें",
+                                    key=f"update_hi_{number}_{application['ID']}",
+                                    type="primary"
+                                ):
+
+                                    update_data = {
+                                        "action": "update_status",
+                                        "ID": application["ID"],
+                                        "Status": new_status
+                                    }
+
+                                    update_response = requests.post(
+                                        GOOGLE_SCRIPT_URL,
+                                        json=update_data,
+                                        timeout=15
+                                    )
+
+                                    if update_response.status_code == 200:
+
+                                        st.success(
+                                            "स्थिति सफलतापूर्वक अपडेट हो गई!"
+                                        )
+
+                                        st.rerun()
+
+                                    else:
+
+                                        st.error(
+                                            "स्थिति अपडेट नहीं की जा सकी।"
+                                        )
 
                     else:
 
