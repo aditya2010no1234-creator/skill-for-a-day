@@ -117,8 +117,7 @@ pages = [
     "Find Jobs",
     "My Applications",
     "Learn Skills",
-    "About SDG 1",
-    "Admin Dashboard"
+    "About SDG 1"
 ]
 
 page = st.sidebar.radio(
