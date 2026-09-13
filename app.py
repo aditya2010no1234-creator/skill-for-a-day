@@ -1702,8 +1702,8 @@ elif page == "Admin Dashboard":
                         for app in data:
                             status = app.get("Status", "Applied")
 
-                        if status in status_counts:
-                            status_counts[status] += 1
+                            if status in status_counts:
+                                status_counts[status] += 1
 
                         col1, col2, col3, col4, col5 = st.columns(5)
 
