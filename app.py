@@ -978,11 +978,6 @@ elif page == "My Applications":
                                     else:
                                         st.info("Status: Applied")
 
-                                    st.write(
-                                        f"**Status:** "
-                                        f"{application['Status']}"
-                                    )
-
                         else:
 
                             st.info(
