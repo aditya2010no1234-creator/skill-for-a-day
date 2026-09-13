@@ -1692,6 +1692,36 @@ elif page == "Admin Dashboard":
                             f"Total Applications: {len(data)}"
                         )
 
+                        status_counts = {
+                            "Applied": 0,
+                            "Under Review": 0,
+                            "Accepted": 0,
+                            "Rejected": 0
+                        }
+
+                        for app in data:
+                            status = app.get("Status", "Applied")
+
+                            if status in status_counts:
+                            status_counts[status] += 1
+
+                        col1, col2, col3, col4, col5 = st.columns(5)
+
+                        with col1:
+                            st.metric("Total", len(data))
+
+                        with col2:
+                            st.metric("Applied", status_counts["Applied"])
+
+                        with col3:
+                            st.metric("Under Review", status_counts["Under Review"])
+
+                        with col4:
+                            st.metric("Accepted", status_counts["Accepted"])
+    
+                        with col5:
+                            st.metric("Rejected", status_counts["Rejected"])
+
                         status_filter = st.selectbox(
                             "Filter by Status",
                             [
